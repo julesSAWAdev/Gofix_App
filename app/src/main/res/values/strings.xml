@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">GoFix_App</string>
+
+    <string name="login_txt">Login into your account</string>
+    <string name="username">username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="no_account">Don\'t have an account? Register</string>
+    <string name="forgot">Forgot password</string>
+    <string name="firstname">Firstname</string>
+    <string name="lastname">Lastname</string>
+    <string name="user_category">User category</string>
+    <string name="phone">Phone</string>
+    <string name="conf_pass">Confirm password</string>
+    <string name="agree">I agree to terms and conditions</string>
+    <string name="alred_acc">Already have an account?</string>
+    <string name="welcome">Welcome</string>
+    <string name="sign_in_cont">Sign in to continue</string>
+
+
+</resources>
