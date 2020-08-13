@@ -13,9 +13,16 @@
     <string name="phone">Phone</string>
     <string name="conf_pass">Confirm password</string>
     <string name="agree">I agree to terms and conditions</string>
-    <string name="alred_acc">Already have an account?</string>
+    <string name="alred_acc">Already have an account? Login</string>
     <string name="welcome">Welcome</string>
     <string name="sign_in_cont">Sign in to continue</string>
+    <string name="change_lang">Change Language</string>
+    <string name="create_acc">Create your account here</string>
+    <string name="user_type">User type</string>
+    <string name="email">Email</string>
+    <string name="register">Register</string>
+    <string name="reset">Reset your password</string>
+    <string name="resetbtn">Reset password</string>
 
 
 </resources>

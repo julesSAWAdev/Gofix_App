@@ -14,8 +14,17 @@
     <string name="phone">Terefone</string>
     <string name="conf_pass">Emeza ijambo ryibanga</string>
     <string name="agree">Nemeye amategeko n\'amabwiriza</string>
-    <string name="alred_acc">Ufite konti?</string>
+    <string name="alred_acc">Ufite konti? Injira</string>
     <string name="welcome">Murakaza neza</string>
     <string name="sign_in_cont">Injira kugirango ukomeze</string>
+    <string name="change_lang">Hindura Ururimi</string>
+    <string name="create_acc">Fungura konti yawe hano</string>
+    <string name="user_type">Umukoresha</string>
+    <string name="email">Imeyili</string>
+    <string name="register">Iyandikishe</string>
+    <string name="reset">Hindura ijambo banga</string>
+    <string name="resetbtn">Ijambo banga rishya</string>
+
+
 
 </resources>

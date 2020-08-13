@@ -83,7 +83,7 @@ public class LangSelect extends AppCompatActivity {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Intent intent = new Intent(LangSelect.this,login.class);
+                    Intent intent = new Intent(LangSelect.this, splash_screen.class);
                     startActivity(intent);
                     finish();
                 }

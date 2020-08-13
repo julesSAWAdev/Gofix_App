@@ -30,7 +30,7 @@
         android:fontFamily="sans-serif-medium"
         android:gravity="center"
         android:text="GoFix V 1.0.0"
-        android:textSize="60sp"
+        android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
