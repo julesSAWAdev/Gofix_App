@@ -1,44 +1,45 @@
 package com.sawadevelopers.gofix_app;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 import java.util.Locale;
-
-import static androidx.core.content.ContentProviderCompat.requireContext;
+import java.util.Map;
 
 public class Registration extends AppCompatActivity {
-    Button callLogin;
-    TextView firstname,lastname,email,phone,password,passwordConf;
+    private Button callLogin,register;
+    private EditText firstname,lastname,email,phone,password,passwordConf;
+    private ProgressBar loading;
+    private RequestQueue rQueue;
+    private static String URL_REGIST = "https://www.sawadevelopers.rw/gofixapp/android/Register.php";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadLocale();
         setContentView(R.layout.activity_registration);
-
-
-        String[] type = new String[] {"Bed-sitter", "Single", "1- Bedroom", "2- Bedroom","3- Bedroom"};
-
-        ArrayAdapter<String> adapter =
-                new ArrayAdapter<>(
-                        this,
-                        R.layout.user_type_select,
-                        type);
-
-        AutoCompleteTextView editTextFilledExposedDropdown =
-                findViewById(R.id.user_type_select);
-        editTextFilledExposedDropdown.setAdapter(adapter);
 
         //hooks
         callLogin = findViewById(R.id.acc_exist);
@@ -48,6 +49,8 @@ public class Registration extends AppCompatActivity {
         phone = findViewById(R.id.phone);
         password = findViewById(R.id.password);
         passwordConf = findViewById(R.id.conf_pass);
+        register = findViewById(R.id.register);
+        loading = findViewById(R.id.loading);
 
 
         callLogin.setOnClickListener(new View.OnClickListener() {
@@ -59,7 +62,72 @@ public class Registration extends AppCompatActivity {
             }
         });
 
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Register();
+            }
+        });
 
+    }
+
+    private void Register() {
+
+        loading.setVisibility(View.VISIBLE);
+        register.setVisibility(View.GONE);
+
+        final String firstname = this.firstname.getText().toString();
+        final String lastname = this.lastname.getText().toString();
+        final String phone = this.phone.getText().toString();
+        final String email = this.email.getText().toString();
+        final String password = this.password.getText().toString();
+        final String passwordconf = this.passwordConf.getText().toString();
+
+
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_REGIST,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        rQueue.getCache().clear();
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            if (jsonObject.optString("success").equals("1")) {
+                                Toast.makeText(Registration.this, "Registered Successfully! Now Login", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(getBaseContext(), login.class));
+                                finish();
+                            } else {
+                                Toast.makeText(Registration.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                                loading.setVisibility(View.GONE);
+                                register.setVisibility(View.VISIBLE);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(Registration.this, error.toString(), Toast.LENGTH_LONG).show();
+                        loading.setVisibility(View.GONE);
+                        register.setVisibility(View.VISIBLE);
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("firstname", firstname);
+                params.put("lastname", lastname);
+                params.put("email", email);
+                params.put("phone", phone);
+                params.put("password", password);
+               params.put("passwordconf", passwordconf);
+                return params;
+            }
+        };
+        rQueue = Volley.newRequestQueue(Registration.this);
+        rQueue.add(stringRequest);
     }
 
 

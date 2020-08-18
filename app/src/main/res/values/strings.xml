@@ -23,6 +23,45 @@
     <string name="register">Register</string>
     <string name="reset">Reset your password</string>
     <string name="resetbtn">Reset password</string>
+    <string name="sec">Security</string>
+    <string name="changepwd">Change password</string>
+    <string name="legal">Legal</string>
+    <string name="terms">Terms and conditions</string>
+    <string name="priva">Privacy policy</string>
+    <string name="reach">Reach us</string>
+    <string name="about">About</string>
+    <string name="Contactus">Contact us</string>
+    <string name="faq">FAQs</string>
+    <string name="logout">Logout</string>
+    <string name="delete">DELETE MY ACCOUNT</string>
+    <string name="Auto">Automobile services</string>
+    <string name="mecha">Mechanics</string>
+    <string name="spare">Spare parts</string>
+    <string name="carrental">Car rental</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- error messages -->
+    <string name="emailErr">Invalid email address</string>
+    <string name="passwordErr">Incorrect password</string>
+    <string name="invalidCredentials">Incorrect Email or Password</string>
+    <string name="stdError">Something went wrong! Please try again</string>
+    <string name="fieldErr">required</string>
+    <string name="confirmErr">Confirm password</string>
+    <string name="passwdErr">Password Not Matching</string>
+    <string name="tcsErr">Accept terms and conditions to continue</string>
+    <string name="accountExist">Email already exist</string>
+    <string name="success">Completed Successfully!</string>
 
 
 </resources>

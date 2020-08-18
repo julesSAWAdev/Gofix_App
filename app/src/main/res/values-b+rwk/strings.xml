@@ -24,7 +24,35 @@
     <string name="register">Iyandikishe</string>
     <string name="reset">Hindura ijambo banga</string>
     <string name="resetbtn">Ijambo banga rishya</string>
+    <string name="sec">Umutekano</string>
+    <string name="changepwd">Hindura ijambo banga</string>
+    <string name="legal">Amategeko</string>
+    <string name="terms">Amategeko n\'amabwiriza</string>
+    <string name="priva">Politiki y’ibanga</string>
+    <string name="reach">Tugereho</string>
+    <string name="about">Ibyerekeye</string>
+    <string name="Contactus">Twandikire</string>
+    <string name="faq">Ibibazo</string>
+    <string name="logout">Gusohoka</string>
+    <string name="delete">SIBA KONTI YAWE</string>
+    <string name="Auto">Servisi z\'imodoka</string>
+    <string name="mecha">Umukanishi</string>
+    <string name="spare">Ibikoresho</string>
+    <string name="carrental">Gukodesha Imodoka</string>
 
+
+
+    <!-- error messages -->
+    <string name="emailErr">Imeyili mwakoresheje siyo</string>
+    <string name="passwordErr">Ijambo banga siryo</string>
+    <string name="invalidCredentials">Imeyili cg Ijambo banga Siryo</string>
+    <string name="stdError">Habayeho Ikibazo ongera ugerageze</string>
+    <string name="fieldErr">Irakenewe</string>
+    <string name="confirmErr">Emeza Ijambo banga</string>
+    <string name="passwdErr">Ijambo banga sirihura</string>
+    <string name="tcsErr">Emera amategeko namabwiriza kugira ukomeze</string>
+    <string name="accountExist">Imeyili yarakoreshejwe</string>
+    <string name="success">Igikorwa cyagenze neza</string>
 
 
 </resources>

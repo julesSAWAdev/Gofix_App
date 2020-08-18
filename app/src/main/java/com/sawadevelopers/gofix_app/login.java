@@ -1,8 +1,5 @@
 package com.sawadevelopers.gofix_app;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.DialogInterface;
@@ -10,24 +7,47 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.os.Handler;
+import android.text.TextUtils;
 import android.util.Pair;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class login extends AppCompatActivity {
 
+    final String TAG = "Login";
     Button callSignUp,loginbtn,forget;
     TextView logotext,slogan;
     ImageView image;
     TextInputLayout username,password;
+    TextInputEditText etEmailAddress;
+    TextInputEditText etPassword;
+    private RequestQueue rQueue;
+    private SharedPrefrencesHelper sharedPrefrencesHelper;
+    private static String URL_Login = "https://www.sawadevelopers.rw/gofixapp/android/login.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +64,17 @@ public class login extends AppCompatActivity {
         password = findViewById(R.id.password);
         loginbtn = findViewById(R.id.login);
         forget = findViewById(R.id.forgot);
+        etEmailAddress = findViewById(R.id.etusername);
+        etPassword = findViewById(R.id.etpassword);
+        sharedPrefrencesHelper = new SharedPrefrencesHelper(this);
+
+
+    loginbtn.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            loginAction();
+        }
+    });
 
         callSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,6 +116,61 @@ public class login extends AppCompatActivity {
                 showChangeLanguageDialog();
             }
         });
+    }
+
+    private void loginAction(){
+        final String username = this.etEmailAddress.getText().toString().trim();
+        final String password = this.etPassword.getText().toString().trim();
+
+        if(username.isEmpty()){
+            etEmailAddress.setError("Email or phone required");
+            return;
+        }
+        if (password.isEmpty()) {
+            etPassword.setError("Password is required");
+            etPassword.requestFocus();
+            return;
+        }
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_Login, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                rQueue.getCache().clear();
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    if (jsonObject.optString("success").equals("1")) {
+                        Toast.makeText(login.this, "Registered Successfully! Now Login", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getBaseContext(), Dashboard.class));
+                        finish();
+                    } else {
+                        Toast.makeText(login.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                       // loading.setVisibility(View.GONE);
+                        //register.setVisibility(View.VISIBLE);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(login.this, error.toString(), Toast.LENGTH_LONG).show();
+                        //loading.setVisibility(View.GONE);
+                        //register.setVisibility(View.VISIBLE);
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("username", username);
+                params.put("password", password);
+                return params;
+            }
+        };
+        rQueue = Volley.newRequestQueue(login.this);
+        rQueue.add(stringRequest);
+
     }
     private void showChangeLanguageDialog(){
         final String[] ListItems = {"English","Kinyarwanda"};
@@ -135,4 +221,53 @@ public class login extends AppCompatActivity {
         String language = prefs.getString("My_lang", "");
             setLocale(language);
     }
+
+    /*********************************************************************************************/
+    // EMAIL INPUT FIELD VALIDATION
+    // Throws error if email address field is empty
+    // Throws error if email format is incorrect
+
+    private static boolean isValidEmail(String email){
+        return !TextUtils.isEmpty(email) &&
+                android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
+
+    private boolean validateEmail() {
+        String Email = etEmailAddress.getText().toString().trim();
+
+        if (Email.isEmpty() || !isValidEmail(Email)){
+
+            username.setError(getString(R.string.emailErr));
+            username.requestFocus();
+            return false;
+
+        }else{
+            username.setErrorEnabled(false);
+        }
+        return true;
+    }
+
+    /**********************************************************************************************/
+    // PASSWORD INPUT FIELD VALIDATION
+    // Throws error if password field is empty
+    // Throws error if password is incorrect
+
+    private boolean emptyPassword(EditText password){
+        String passwd = password.getText().toString().trim();
+        return (passwd.isEmpty());
+    }
+
+    private boolean validatePassword() {
+        if (etPassword.getText().toString().trim().isEmpty()){
+
+            password.setError(getString(R.string.passwordErr));
+            password.requestFocus();
+            return false;
+
+        }else{
+            password.setErrorEnabled(false);
+        }
+        return true;
+    }
+
 }
