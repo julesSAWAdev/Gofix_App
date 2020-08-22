@@ -6,8 +6,10 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -32,6 +34,7 @@ public class Registration extends AppCompatActivity {
     private EditText firstname,lastname,email,phone,password,passwordConf;
     private ProgressBar loading;
     private RequestQueue rQueue;
+    ImageView image;
     private static String URL_REGIST = "https://www.sawadevelopers.rw/gofixapp/android/Register.php";
 
 
@@ -39,6 +42,7 @@ public class Registration extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadLocale();
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_registration);
 
         //hooks
@@ -51,6 +55,7 @@ public class Registration extends AppCompatActivity {
         passwordConf = findViewById(R.id.conf_pass);
         register = findViewById(R.id.register);
         loading = findViewById(R.id.loading);
+        image =findViewById(R.id.logoImage);
 
 
         callLogin.setOnClickListener(new View.OnClickListener() {

@@ -1,7 +1,6 @@
 package com.sawadevelopers.gofix_app;
 
 import android.app.Activity;
-import android.app.ActivityOptions;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,7 +47,8 @@ public class login extends AppCompatActivity {
     TextInputEditText etPassword;
     private RequestQueue rQueue;
     private SharedPrefrencesHelper sharedPrefrencesHelper;
-    private static String URL_Login = "https://www.sawadevelopers.rw/gofixapp/android/login.php";
+    ProgressBar loading;
+    private static String URL_Login = "https://www.sawadevelopers.rw/gofixapp/android/Login.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,11 +68,13 @@ public class login extends AppCompatActivity {
         etEmailAddress = findViewById(R.id.etusername);
         etPassword = findViewById(R.id.etpassword);
         sharedPrefrencesHelper = new SharedPrefrencesHelper(this);
+        loading = findViewById(R.id.loading);
 
 
     loginbtn.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+
             loginAction();
         }
     });
@@ -92,8 +95,8 @@ public class login extends AppCompatActivity {
                 pairs[7] = new Pair<View,String>(forget,"forg_trans");
 
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                    ActivityOptions options =ActivityOptions.makeSceneTransitionAnimation(login.this,pairs);
-                    startActivity(intent, options.toBundle());
+                   // ActivityOptions options =ActivityOptions.makeSceneTransitionAnimation(login.this,pairs);
+                    startActivity(intent);
                    // finish();
                 }
             }
@@ -119,16 +122,24 @@ public class login extends AppCompatActivity {
     }
 
     private void loginAction(){
+        loading.setVisibility(View.VISIBLE);
+        loginbtn.setVisibility(View.GONE);
+
         final String username = this.etEmailAddress.getText().toString().trim();
         final String password = this.etPassword.getText().toString().trim();
 
         if(username.isEmpty()){
             etEmailAddress.setError("Email or phone required");
+
+            loading.setVisibility(View.GONE);
+            loginbtn.setVisibility(View.VISIBLE);
             return;
         }
         if (password.isEmpty()) {
             etPassword.setError("Password is required");
             etPassword.requestFocus();
+            loading.setVisibility(View.GONE);
+            loginbtn.setVisibility(View.VISIBLE);
             return;
         }
 
@@ -139,13 +150,18 @@ public class login extends AppCompatActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     if (jsonObject.optString("success").equals("1")) {
-                        Toast.makeText(login.this, "Registered Successfully! Now Login", Toast.LENGTH_SHORT).show();
+                       SharedPreferences pref = getSharedPreferences("logindata", MODE_PRIVATE);
+                       SharedPreferences.Editor editor = pref.edit();
+                       editor.putString("username", username);
+                       editor.putString("password", password);
+                       editor.apply();
+                        Toast.makeText(login.this, "Login Success", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(getBaseContext(), Dashboard.class));
                         finish();
                     } else {
                         Toast.makeText(login.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-                       // loading.setVisibility(View.GONE);
-                        //register.setVisibility(View.VISIBLE);
+                        loading.setVisibility(View.GONE);
+                        loginbtn.setVisibility(View.VISIBLE);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -156,8 +172,8 @@ public class login extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(login.this, error.toString(), Toast.LENGTH_LONG).show();
-                        //loading.setVisibility(View.GONE);
-                        //register.setVisibility(View.VISIBLE);
+                        loading.setVisibility(View.GONE);
+                        loginbtn.setVisibility(View.VISIBLE);
                     }
                 }) {
             @Override
@@ -168,10 +184,14 @@ public class login extends AppCompatActivity {
                 return params;
             }
         };
+         HttpsTrustManager.allowAllSSL();
         rQueue = Volley.newRequestQueue(login.this);
         rQueue.add(stringRequest);
 
+       // MySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
+
     }
+
     private void showChangeLanguageDialog(){
         final String[] ListItems = {"English","Kinyarwanda"};
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);

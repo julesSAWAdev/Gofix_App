@@ -93,17 +93,17 @@
                 android:layout_weight="3.8">
 
                 <TextView
+                    android:id="@+id/tvUsername"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
-                    android:textSize="15sp"
-                    android:text="@string/username"/>
+                    android:textSize="15sp" />
 
                 <TextView
+                    android:id="@+id/phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:text="@string/phone"/>
+                    android:textSize="14sp" />
 
             </LinearLayout> <!-- End Identification Details -->
 

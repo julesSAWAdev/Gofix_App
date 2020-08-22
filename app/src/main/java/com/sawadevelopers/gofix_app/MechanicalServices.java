@@ -7,6 +7,8 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,57 +27,57 @@ import org.json.JSONObject;
 
 import java.util.Locale;
 
-public class settings extends AppCompatActivity {
-    TextView tvback,username,phone,logout;
+public class MechanicalServices extends AppCompatActivity {
+    TextView tvback,username;
+    ImageView settings;
+    String sessionmail,userStored;
+    TextView findmec,findgar,findwash;
+    Button register;
     private RequestQueue rQueue;
-    String userStored,phoneStored;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // retrieveUser();
+     //   retrieveUser();
         loadLocale();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_settings);
+        setContentView(R.layout.activity_mechanical_services);
 
-        tvback = findViewById(R.id.tvBack);
+        //hooks
+        tvback = findViewById(R.id.back);
+        settings = findViewById(R.id.ivSettings);
+        findgar =findViewById(R.id.Fgarage);
+        findmec =findViewById(R.id.Fmec);
+        findwash =findViewById(R.id.Fcarwash);
+        register = findViewById(R.id.registerMec);
         username = findViewById(R.id.tvUsername);
-        phone = findViewById(R.id.phone);
-        logout = findViewById(R.id.tvLogout);
 
         //tvusername
         SharedPreferences prefs = getSharedPreferences("userLoginData", MODE_PRIVATE);
         userStored = prefs.getString("fullusername", null);
-        phoneStored = prefs.getString("phone",null);
         username.setText(userStored);
-        phone.setText(phoneStored);
 
+        //shared preferences
+        SharedPreferences pref = getSharedPreferences("logindata", MODE_PRIVATE);
+        sessionmail = pref.getString("username",null);
+
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), settings.class));
+                finish();
+            }
+        });
 
         tvback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               Intent intent =  new Intent(settings.this,Dashboard.class);
-               startActivity(intent);
-               finish();
+                Intent intent =  new Intent(MechanicalServices.this,Dashboard.class);
+                startActivity(intent);
+                finish();
                 overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
             }
         });
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent =  new Intent(settings.this,login.class);
-                startActivity(intent);
-                finish();
-                SharedPreferences pref = getSharedPreferences("logindata", MODE_PRIVATE);
-                pref.edit().clear().apply();
-                SharedPreferences prefs = getSharedPreferences("userLoginData", MODE_PRIVATE);
-                prefs.edit().clear().apply();
-
-            }
-        });
-
-
     }
     private void retrieveUser() {
         //final String userMail = sessionmail;
@@ -95,10 +97,8 @@ public class settings extends AppCompatActivity {
 
                         String fname = jsonObject.getString("Firstname");
                         String lname = jsonObject.getString("Lastname");
-                        String phonee = jsonObject.getString("phone");
 
                         username.setText(fname + " " + lname);
-                        phone.setText(phonee);
 
                     }
                 } catch (JSONException e) {
@@ -109,14 +109,13 @@ public class settings extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 if (error != null){
-                    Toast.makeText(settings.this,error.toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(MechanicalServices.this,error.toString(), Toast.LENGTH_LONG).show();
                 }
             }
         });
-        rQueue = Volley.newRequestQueue(settings.this);
+        rQueue = Volley.newRequestQueue(MechanicalServices.this);
         rQueue.add(stringRequest);
     }
-
     private void setLocale(String lang) {
 
         Locale locale =new Locale(lang);

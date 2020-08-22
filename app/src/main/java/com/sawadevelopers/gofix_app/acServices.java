@@ -7,6 +7,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,58 +26,51 @@ import org.json.JSONObject;
 
 import java.util.Locale;
 
-public class settings extends AppCompatActivity {
-    TextView tvback,username,phone,logout;
+public class acServices extends AppCompatActivity {
+    ImageView settings;
+    TextView tvback,username;
+    String sessionmail,userStored;
     private RequestQueue rQueue;
-    String userStored,phoneStored;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // retrieveUser();
+        //retrieveUser();
         loadLocale();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_settings);
+        setContentView(R.layout.activity_ac_services);
 
-        tvback = findViewById(R.id.tvBack);
+        //hooks
+        settings = findViewById(R.id.ivSettings);
+        tvback = findViewById(R.id.back);
         username = findViewById(R.id.tvUsername);
-        phone = findViewById(R.id.phone);
-        logout = findViewById(R.id.tvLogout);
 
         //tvusername
         SharedPreferences prefs = getSharedPreferences("userLoginData", MODE_PRIVATE);
         userStored = prefs.getString("fullusername", null);
-        phoneStored = prefs.getString("phone",null);
         username.setText(userStored);
-        phone.setText(phoneStored);
 
+        SharedPreferences pref = getSharedPreferences("logindata", MODE_PRIVATE);
+        sessionmail = pref.getString("username",null);
+
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), settings.class));
+                finish();
+            }
+        });
 
         tvback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               Intent intent =  new Intent(settings.this,Dashboard.class);
-               startActivity(intent);
-               finish();
+                Intent intent =  new Intent(acServices.this,autoServices.class);
+                startActivity(intent);
+                finish();
                 overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
             }
         });
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent =  new Intent(settings.this,login.class);
-                startActivity(intent);
-                finish();
-                SharedPreferences pref = getSharedPreferences("logindata", MODE_PRIVATE);
-                pref.edit().clear().apply();
-                SharedPreferences prefs = getSharedPreferences("userLoginData", MODE_PRIVATE);
-                prefs.edit().clear().apply();
-
-            }
-        });
-
-
     }
+
     private void retrieveUser() {
         //final String userMail = sessionmail;
         //System.out.println(sessionmail);
@@ -98,7 +92,7 @@ public class settings extends AppCompatActivity {
                         String phonee = jsonObject.getString("phone");
 
                         username.setText(fname + " " + lname);
-                        phone.setText(phonee);
+                        //phone.setText(phonee);
 
                     }
                 } catch (JSONException e) {
@@ -109,14 +103,13 @@ public class settings extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 if (error != null){
-                    Toast.makeText(settings.this,error.toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(acServices.this,error.toString(), Toast.LENGTH_LONG).show();
                 }
             }
         });
-        rQueue = Volley.newRequestQueue(settings.this);
+        rQueue = Volley.newRequestQueue(acServices.this);
         rQueue.add(stringRequest);
     }
-
     private void setLocale(String lang) {
 
         Locale locale =new Locale(lang);

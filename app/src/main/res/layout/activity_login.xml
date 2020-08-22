@@ -83,6 +83,12 @@
             android:elevation="0dp"
             android:layout_margin="5dp"
             android:transitionName="forg_trans"/>
+        <ProgressBar
+            android:id="@+id/loading"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
         <Button
             android:id="@+id/login"
             android:layout_width="match_parent"

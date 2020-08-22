@@ -23,7 +23,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".settings"></activity>
+        <activity android:name=".SpareServices"></activity>
+        <activity android:name=".MechanicalServices" />
+        <activity android:name=".acServices" />
+        <activity android:name=".GearboxServices" />
+        <activity android:name=".SheetServices" />
+        <activity android:name=".pnematicServices" />
+        <activity android:name=".electricityServices" />
+        <activity android:name=".engineServices" />
+        <activity android:name=".autoServices" />
+        <activity android:name=".settings" />
         <activity android:name=".Dashboard" />
         <activity android:name=".ResetPassword" />
         <activity android:name=".Registration" />

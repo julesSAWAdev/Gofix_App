@@ -1,13 +1,11 @@
 package com.sawadevelopers.gofix_app;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Pair;
-import android.view.TextureView;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -15,10 +13,14 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 public class splash_screen extends AppCompatActivity {
 
     //variable for next screen
     private static int SPLASH_SCREEN = 5000;
+    String emailStored = "";
+    String passwordStoref = "";
 
     //variables animation
     Animation topAnim,bottomAnim;
@@ -53,11 +55,25 @@ public class splash_screen extends AppCompatActivity {
                 pairs[0] = new Pair<View,String>(image, "logo_image");
                 pairs[1] = new Pair<View,String>(logo, "logo_text");
 
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(splash_screen.this,pairs);
-                startActivity(intent,options.toBundle());
-                finish();
+                SharedPreferences pref = getSharedPreferences("logindata",MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                emailStored = pref.getString("username",null);
+                passwordStoref = pref.getString("password", null);
+               // Log.d("username",emailStored);
+                //Log.d("password",passwordStoref);
+                if (emailStored == null){
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(splash_screen.this,pairs);
+                        startActivity(intent,options.toBundle());
+                        finish();
+                    }
+                }else
+                {
+                    startActivity(new Intent(getApplicationContext(),Dashboard.class));
+                    finish();
                 }
+
+
             }
         },SPLASH_SCREEN);
     }

@@ -54,5 +54,25 @@
     <string name="accountExist">Imeyili yarakoreshejwe</string>
     <string name="success">Igikorwa cyagenze neza</string>
 
+    <string name="engine">Moteri</string>
+    <string name="electricity">Amashanyarazi</string>
+    <string name="pnematic">Amapine</string>
+    <string name="sheetmetal">Irangi</string>
+    <string name="none"></string>
+    <string name="gearbox">Buwate</string>
+    <string name="ac">AC</string>
+
+    <string name="repair">Gusana</string>
+    <string name="maintenance">Kubungabunga</string>
+
+    <string name="findgar">Shakisha I garage</string>
+    <string name="findmec">Shakisha umukanishi</string>
+    <string name="findwasher">Shakisha Ikinamba</string>
+    <string name="registerGar">Register Garage/Mechanician</string>
+
+    <string name="findSpare">Shaka piece</string>
+    <string name="regSpare">Andikisha Iduka</string>
+
+
 
 </resources>

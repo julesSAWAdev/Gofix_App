@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Dashboard">
+    tools:context=".GearboxServices">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,6 +22,7 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/back"
                 android:clickable="true"
                 android:focusable="true"
                 android:layout_width="0dp"
@@ -31,6 +32,7 @@
                 android:layout_gravity="center_vertical"
                 android:textColor="#000"
                 tools:ignore="RtlCompat"
+                android:drawableStart="@drawable/ic_arrow_back_black_24dp"
                 />
 
             <LinearLayout
@@ -120,12 +122,12 @@
                 android:layout_weight="3.8">
 
                 <TextView
-                    android:id="@+id/autoser"
+                    android:id="@+id/maintenance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:textSize="15sp"
-                    android:text="@string/Auto"/>
+                    android:text="@string/maintenance"/>
 
 
 
@@ -186,12 +188,12 @@
                 android:layout_weight="3.8">
 
                 <TextView
-                    android:id="@+id/mechanic"
+                    android:id="@+id/repair"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:textSize="15sp"
-                    android:text="@string/mecha"/>
+                    android:text="@string/repair"/>
 
 
 
@@ -201,136 +203,9 @@
 
 
 
-        <!-- *********************************** -->
-        <!--           My Account Card          -->
-        <!-- *********************************** -->
-        <LinearLayout
-            android:id="@+id/myAccountCard"
-            android:layout_marginTop="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_gravity="center_vertical"
-            android:weightSum="5"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="@drawable/card_bg"
-            android:padding="22dp"
-            android:orientation="horizontal"
-            tools:ignore="DisableBaselineAlignment">
-
-            <!--  Icon -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_weight="1.2">
-
-                <ImageView
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:padding="12dp"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/circle"
-                    android:src="@drawable/ic_directions_car_black_24dp"
-                    tools:ignore="ContentDescription" />
-
-            </LinearLayout> <!--  End Icon -->
-
-            <!--  My Account text -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="center_vertical"
-                android:gravity="center_vertical"
-                android:layout_weight="3.8">
-
-                <TextView
-                    android:id="@+id/spare"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="15sp"
-                    android:text="@string/spare"/>
 
 
 
-            </LinearLayout> <!--  End My Account text -->
-
-        </LinearLayout> <!--  End My Account Card -->
-
-
-
-        <!-- *********************************** -->
-        <!--           FAQs Card          -->
-        <!-- *********************************** -->
-        <LinearLayout
-            android:id="@+id/FAQs"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_gravity="center_vertical"
-            android:weightSum="5"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="@drawable/card_bg"
-            android:padding="22dp"
-            android:orientation="horizontal"
-            tools:ignore="DisableBaselineAlignment">
-
-            <!--  Icon -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_weight="1.2">
-
-                <ImageView
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:padding="12dp"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/circle"
-                    android:src="@drawable/ic_directions_car_black_24dp"
-                    tools:ignore="ContentDescription" />
-
-            </LinearLayout> <!--  End Icon -->
-
-            <!--  FAQs text -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="center_vertical"
-                android:gravity="center_vertical"
-                android:layout_weight="3.8">
-
-                <TextView
-                    android:id="@+id/rental"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="15sp"
-                    android:text="@string/carrental"/>
-
-
-
-            </LinearLayout> <!--  End My FAQs text -->
-
-        </LinearLayout> <!--  End FAQs Card -->
 
     </LinearLayout>
 

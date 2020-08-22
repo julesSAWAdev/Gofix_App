@@ -40,17 +40,6 @@
     <string name="carrental">Car rental</string>
 
 
-
-
-
-
-
-
-
-
-
-
-
     <!-- error messages -->
     <string name="emailErr">Invalid email address</string>
     <string name="passwordErr">Incorrect password</string>
@@ -62,6 +51,22 @@
     <string name="tcsErr">Accept terms and conditions to continue</string>
     <string name="accountExist">Email already exist</string>
     <string name="success">Completed Successfully!</string>
+    <string name="engine">Engine</string>
+    <string name="electricity">Electricity</string>
+    <string name="pnematic">pnematic:suspension</string>
+    <string name="sheetmetal">Sheetmetal:painting</string>
+    <string name="none"></string>
+    <string name="gearbox">Gearbox</string>
+    <string name="ac">AC</string>
+    <string name="repair">Repair</string>
+    <string name="maintenance">Maintenance</string>
+    <string name="findgar">Find a garage</string>
+    <string name="findmec">Find a mechanician</string>
+    <string name="findwasher">Find a car wash</string>
+    <string name="registerGar">Register Garage/Mechanician</string>
+
+    <string name="findSpare">Find a spare part</string>
+    <string name="regSpare">Register your shop</string>
 
 
 </resources>

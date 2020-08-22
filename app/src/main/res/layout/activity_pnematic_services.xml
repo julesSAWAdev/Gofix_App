@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".pnematicServices">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:ignore="UselessLeaf">
+
+        <!-- HEADER SECTION -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:weightSum="5"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/back"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:layout_gravity="center_vertical"
+                android:textColor="#000"
+                tools:ignore="RtlCompat"
+                android:drawableStart="@drawable/ic_arrow_back_black_24dp"
+                />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="8dp"
+                android:gravity="end"
+                android:layout_weight="4"
+                tools:ignore="RtlCompat">
+
+                <TextView
+                    android:id="@+id/tvUsername"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical" />
+
+                <ImageView
+                    android:id="@+id/ivSettings"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="5dp"
+                    android:padding="5dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/circle"
+                    android:src="@drawable/ic_settings_black_24dp"
+                    tools:ignore="ContentDescription" />
+
+            </LinearLayout>
+
+        </LinearLayout> <!-- End Header Section -->
+
+
+
+
+
+
+
+
+
+        <!-- *********************************** -->
+        <!--           My Vehicles Card          -->
+        <!-- *********************************** -->
+        <LinearLayout
+            android:id="@+id/myVehiclesCard"
+            android:layout_marginTop="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_gravity="center_vertical"
+            android:weightSum="5"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="@drawable/card_bg"
+            android:padding="22dp"
+            android:orientation="horizontal"
+            tools:ignore="DisableBaselineAlignment">
+
+            <!--  Icon -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_weight="1.2">
+
+                <ImageView
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:padding="12dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/circle"
+                    android:src="@drawable/ic_directions_car_black_24dp"
+                    tools:ignore="ContentDescription" />
+
+            </LinearLayout> <!--  End Icon -->
+
+            <!--  My Vehicles text -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:layout_weight="3.8">
+
+                <TextView
+                    android:id="@+id/repair"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="15sp"
+                    android:text="@string/repair"/>
+
+
+
+            </LinearLayout> <!--  End My Vehicles text -->
+
+        </LinearLayout> <!--  End My Vehicles Card -->
+
+
+
+
+
+
+
+    </LinearLayout>
+
+</ScrollView>
