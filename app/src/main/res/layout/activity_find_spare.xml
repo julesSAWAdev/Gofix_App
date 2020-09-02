@@ -67,92 +67,98 @@
             </LinearLayout>
 
         </LinearLayout> <!-- End Header Section -->
+        <ImageView
+            android:id="@+id/image1"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:scaleType="centerCrop"
+            android:layout_marginTop="40dp"
+            />
 
-
-
-
-
-        <!-- *********************************** -->
-        <!--            My Reports Card          -->
-        <!-- *********************************** -->
         <LinearLayout
-            android:layout_marginTop="100dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_gravity="center_vertical"
-            android:weightSum="5"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="@drawable/card_bg"
-            android:padding="22dp"
-            android:orientation="horizontal"
-            tools:ignore="DisableBaselineAlignment">
+            android:padding="@dimen/padding_max"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp">
 
-            <!--  Icon -->
-            <LinearLayout
-                android:layout_width="0dp"
+            <TextView
+                android:id="@+id/spareName"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_weight="1.2">
+                android:textSize="20dp"
+                style="@style/BoldTitleTextTheme"/>
 
-                <ImageView
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:padding="12dp"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/circle"
-                    android:src="@drawable/ic_directions_car_black_24dp"
-                    tools:ignore="ContentDescription" />
-
-            </LinearLayout> <!--  End Icon -->
-
-            <!--  My reports text -->
-            <LinearLayout
-                android:layout_width="0dp"
+            <TextView
+                android:id="@+id/destitle"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="center_vertical"
-                android:gravity="center_vertical"
-                android:layout_weight="3.8">
+                android:text="Description"
+                style="@style/SecondaryTextTheme"/>
 
-                <TextView
-                    android:id="@+id/findspare"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="@string/findSpare"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/BoldTitleTextTheme"/>
+
+            <TextView
+                android:id="@+id/desprice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="price"
+                style="@style/SecondaryTextTheme"/>
+
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/BoldTitleTextTheme"/>
+
+            <TextView
+                android:id="@+id/contact"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/SecondaryTextTheme"
+                android:text="@string/contact"/>
+
+            <TextView
+                android:id="@+id/phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/SecondaryTextTheme"
+                android:text="@string/contact"/>
+
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/SecondaryTextTheme"
+                android:text="@string/contact"/>
 
 
 
-            </LinearLayout> <!--  End My reports text -->
+        </LinearLayout>
 
-        </LinearLayout> <!--  End My Report Card -->
-
-
-
-
+        <ProgressBar
+            android:id="@+id/proSpare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:visibility="gone"/>
 
         <Button
-            android:id="@+id/registerShop"
+            android:id="@+id/btnOrder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="#689999"
-            android:layout_gravity="center"
-            android:text="@string/regSpare"
-            android:textColor="#fff"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-           />
+            android:text="@string/order"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp">
+
+        </Button>
+
+
 
 
     </LinearLayout>

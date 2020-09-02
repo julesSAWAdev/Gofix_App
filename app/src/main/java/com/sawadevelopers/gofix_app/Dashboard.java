@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -30,7 +31,7 @@ public class Dashboard extends AppCompatActivity {
 
     ImageView settings;
     String sessionmail,userStored;
-    TextView autoser,mechanician,spare,username;
+    TextView autoser,mechanician,spare,username,rental;
     private RequestQueue rQueue;
 
 
@@ -47,6 +48,7 @@ public class Dashboard extends AppCompatActivity {
         mechanician = findViewById(R.id.mechanic);
         spare = findViewById(R.id.spare);
         username = findViewById(R.id.tvUsername);
+        rental = findViewById(R.id.rental);
 
         //tvusername
         SharedPreferences prefs = getSharedPreferences("userLoginData", MODE_PRIVATE);
@@ -88,6 +90,12 @@ public class Dashboard extends AppCompatActivity {
                // finish();
             }
         });
+        rental.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),CarRentals.class));
+            }
+        });
     }
 
     private void retrieveUser() {
@@ -102,7 +110,7 @@ public class Dashboard extends AppCompatActivity {
             //System.out.println(sessionmail);
             SharedPreferences prefs = getSharedPreferences("logindata", MODE_PRIVATE);
             String sessionmai = prefs.getString("username", null);
-            String url = "https://www.sawadevelopers.rw/gofixapp/android/home.php?email=" + sessionmai;
+            String url = "https://www.gofix.rw/android/home.php?email=" + sessionmai;
             System.out.println(url);
             StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
                 @Override
@@ -137,8 +145,14 @@ public class Dashboard extends AppCompatActivity {
                     }
                 }
             });
+        int MY_SOCKET_TIMEOUT_MS=5000000;
             rQueue = Volley.newRequestQueue(Dashboard.this);
             rQueue.add(stringRequest);
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                MY_SOCKET_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
         }
     //}
     private void setLocale(String lang) {

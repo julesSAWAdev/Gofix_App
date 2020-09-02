@@ -73,6 +73,20 @@
     <string name="findSpare">Shaka piece</string>
     <string name="regSpare">Andikisha Iduka</string>
 
+    <string name="book">Kodesha</string>
+    <string name="regShop">Andikisha Iduka ryawe hano</string>
+    <string name="shopname">Izina ry\'iduka</string>
+    <string name="Address">Aho iduka ribariza</string>
+    <string name="tin">Nimero ya tin</string>
+    <string name="personcont">Izina rya nyiriduka</string>
+
+    <string name="thankshop">Murakoze kwandikisha iduka ryanyu, umuyobozi wa sisiteme arabavugisha vuba</string>
+    <string name="backhome">Subira ahabanza</string>
+
+    <string name="order">Tumiza</string>
+    <string name="thankspare">Urakoze gutumiza natwe, Turaguhamagara vuba bishoboka</string>
+
+    <string name="contact">Aho wabariza</string>
 
 
 </resources>

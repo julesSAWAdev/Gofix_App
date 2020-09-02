@@ -276,7 +276,9 @@
             android:text="@string/registerGar"
             android:textColor="#ffff"
             android:textSize="15sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"/>
 
 
     </LinearLayout>

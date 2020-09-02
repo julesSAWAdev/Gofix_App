@@ -20,6 +20,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -48,7 +49,7 @@ public class login extends AppCompatActivity {
     private RequestQueue rQueue;
     private SharedPrefrencesHelper sharedPrefrencesHelper;
     ProgressBar loading;
-    private static String URL_Login = "https://www.sawadevelopers.rw/gofixapp/android/Login.php";
+    private static String URL_Login = "http://gofix.rw/android/Login.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -185,8 +186,13 @@ public class login extends AppCompatActivity {
             }
         };
          HttpsTrustManager.allowAllSSL();
+        int MY_SOCKET_TIMEOUT_MS=5000000;
         rQueue = Volley.newRequestQueue(login.this);
         rQueue.add(stringRequest);
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                MY_SOCKET_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
        // MySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
 

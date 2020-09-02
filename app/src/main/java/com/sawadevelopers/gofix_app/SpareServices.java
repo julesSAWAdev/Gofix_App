@@ -74,6 +74,22 @@ public class SpareServices extends AppCompatActivity {
                 overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
             }
         });
+        findSpare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =  new Intent(SpareServices.this,SpareParts.class);
+                startActivity(intent);
+            }
+        });
+
+        registerShop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =  new Intent(SpareServices.this,RegisterShop.class);
+                startActivity(intent);
+            }
+        });
+
     }
     private void retrieveUser() {
         //final String userMail = sessionmail;

@@ -71,6 +71,9 @@ public class settings extends AppCompatActivity {
                 pref.edit().clear().apply();
                 SharedPreferences prefs = getSharedPreferences("userLoginData", MODE_PRIVATE);
                 prefs.edit().clear().apply();
+                //shared preferences
+                SharedPreferences prefss = getSharedPreferences("logindata", MODE_PRIVATE);
+                prefss.edit().clear().apply();
 
             }
         });

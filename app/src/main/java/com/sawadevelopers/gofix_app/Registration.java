@@ -7,14 +7,17 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -22,9 +25,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -35,7 +40,10 @@ public class Registration extends AppCompatActivity {
     private ProgressBar loading;
     private RequestQueue rQueue;
     ImageView image;
-    private static String URL_REGIST = "https://www.sawadevelopers.rw/gofixapp/android/Register.php";
+    private Spinner spinner;
+    private ArrayList<String> users;
+    private static String URL_REGIST = "http://gofix.rw/android/Register.php";
+    private static String URL_GETUSER = "http://gofix.rw/android/fetch_user_type.php";
 
 
     @Override
@@ -56,7 +64,9 @@ public class Registration extends AppCompatActivity {
         register = findViewById(R.id.register);
         loading = findViewById(R.id.loading);
         image =findViewById(R.id.logoImage);
-
+        //spinner = findViewById(R.id.spinner_users);
+      //  spinner.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
+       // getData();
 
         callLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,7 +108,7 @@ public class Registration extends AppCompatActivity {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             if (jsonObject.optString("success").equals("1")) {
-                                Toast.makeText(Registration.this, "Registered Successfully! Now Login", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Registration.this, "Registered Successfully! Now Login", Toast.LENGTH_SHORT).show();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                Toast.makeText(Registration.this, "Registered Successfully! Now                  Login", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(getBaseContext(), login.class));
                                 finish();
                             } else {
@@ -127,12 +137,17 @@ public class Registration extends AppCompatActivity {
                 params.put("email", email);
                 params.put("phone", phone);
                 params.put("password", password);
-               params.put("passwordconf", passwordconf);
+                params.put("passwordconf", passwordconf);
                 return params;
             }
         };
+        int MY_SOCKET_TIMEOUT_MS=5000000;
         rQueue = Volley.newRequestQueue(Registration.this);
         rQueue.add(stringRequest);
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                MY_SOCKET_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
 
@@ -156,6 +171,36 @@ public class Registration extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
         String language = prefs.getString("My_lang", "");
         setLocale(language);
+    }
+
+    private void getData(){
+        StringRequest stringRequest = new StringRequest(URL_GETUSER,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONArray jsonArray = new JSONArray(response);
+                            for (int i = 0; i < jsonArray.length(); i++){
+                                JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                                String role = jsonObject.getString("role_name");
+                                users.add(role);
+                            }
+                            spinner.setAdapter(new ArrayAdapter<String>(Registration.this, android.R.layout.simple_spinner_dropdown_item, users));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
     }
 
 

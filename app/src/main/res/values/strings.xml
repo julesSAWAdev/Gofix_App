@@ -68,5 +68,20 @@
     <string name="findSpare">Find a spare part</string>
     <string name="regSpare">Register your shop</string>
 
+    <string name="book">Book Now</string>
+    <string name="regShop">Register your shop here</string>
+    <string name="shopname">Shop name</string>
+    <string name="Address">Commercial Address</string>
+    <string name="tin">Tin number</string>
+    <string name="personcont">Shop owner name</string>
+
+    <string name="thankshop">Thank your for registering your shop, The system admin will contact you soon</string>
+    <string name="backhome">Back home</string>
+
+    <string name="order">Order Now</string>
+
+    <string name="thankspare">Thank your for ordering  with us, We will contact you as soon as possible</string>
+
+    <string name="contact">Contacts</string>
 
 </resources>
