@@ -81,7 +81,7 @@ public class CarRentals extends AppCompatActivity {
         tvback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent =  new Intent(CarRentals.this,Dashboard.class);
+                Intent intent =  new Intent(CarRentals.this,RegCarRental.class);
                 startActivity(intent);
                 finish();
                 overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);

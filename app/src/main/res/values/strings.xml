@@ -76,6 +76,7 @@
     <string name="personcont">Shop owner name</string>
 
     <string name="thankshop">Thank your for registering your shop, The system admin will contact you soon</string>
+    <string name="thankRental">Thank your for registering your company, The system admin will contact you soon</string>
     <string name="backhome">Back home</string>
 
     <string name="order">Order Now</string>
@@ -83,5 +84,11 @@
     <string name="thankspare">Thank your for ordering  with us, We will contact you as soon as possible</string>
 
     <string name="contact">Contacts</string>
+    <string name="rentcar">Rent a car</string>
+    <string name="rerental">Register your company</string>
+    <string name="rentalcar">Register your car rental company here</string>
+    <string name="companyName">Company name</string>
+    <string name="companyOwner">Company owner name</string>
+
 
 </resources>

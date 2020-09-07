@@ -93,7 +93,7 @@ public class Dashboard extends AppCompatActivity {
         rental.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),CarRentals.class));
+                startActivity(new Intent(getApplicationContext(),RegCarRental.class));
             }
         });
     }

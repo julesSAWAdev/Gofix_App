@@ -81,12 +81,18 @@
     <string name="personcont">Izina rya nyiriduka</string>
 
     <string name="thankshop">Murakoze kwandikisha iduka ryanyu, umuyobozi wa sisiteme arabavugisha vuba</string>
+    <string name="thankRental">Murakoze kwandikisha companyi yanyu, umuyobozi wa sisiteme arabavugisha vuba</string>
     <string name="backhome">Subira ahabanza</string>
 
     <string name="order">Tumiza</string>
     <string name="thankspare">Urakoze gutumiza natwe, Turaguhamagara vuba bishoboka</string>
 
     <string name="contact">Aho wabariza</string>
+    <string name="rentcar">Kodesha Imodoka</string>
+    <string name="rerental">Iyandikishe hano</string>
+    <string name="rentalcar">Andikisha companyi ikodesha imodoka</string>
+    <string name="companyName">Izaina rya companyi</string>
+    <string name="companyOwner">Amazina ya nyiri companyi</string>
 
 
 </resources>

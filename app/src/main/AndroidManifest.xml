@@ -24,7 +24,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".SpareSuccess"></activity>
+        <activity android:name=".RentalSuccess"></activity>
+        <activity android:name=".RegisterRental" />
+        <activity android:name=".RegCarRental" />
+        <activity android:name=".SpareSuccess" />
         <activity android:name=".SpareParts" />
         <activity android:name=".FindSpare" />
         <activity android:name=".ShopSuccess" />
