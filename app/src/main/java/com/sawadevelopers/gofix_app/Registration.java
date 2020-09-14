@@ -24,6 +24,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.snackbar.Snackbar;
+import com.jaredrummler.materialspinner.MaterialSpinner;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,7 +42,7 @@ public class Registration extends AppCompatActivity {
     private ProgressBar loading;
     private RequestQueue rQueue;
     ImageView image;
-    private Spinner spinner;
+    private MaterialSpinner spinner;
     private ArrayList<String> users;
     private static String URL_REGIST = "http://gofix.rw/android/Register.php";
     private static String URL_GETUSER = "http://gofix.rw/android/fetch_user_type.php";
@@ -64,9 +66,18 @@ public class Registration extends AppCompatActivity {
         register = findViewById(R.id.register);
         loading = findViewById(R.id.loading);
         image =findViewById(R.id.logoImage);
-        //spinner = findViewById(R.id.spinner_users);
+        spinner = (MaterialSpinner) findViewById(R.id.spUserType);
       //  spinner.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
        // getData();
+
+     spinner.setItems("Car owner", "Garage", "Private mechanician", "Car rental");
+        spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+
+            @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+               // Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG).show();
+            }
+        });
+
 
         callLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,6 +108,7 @@ public class Registration extends AppCompatActivity {
         final String email = this.email.getText().toString();
         final String password = this.password.getText().toString();
         final String passwordconf = this.passwordConf.getText().toString();
+        final String usertype = this.spinner.getText().toString();
 
 
 
@@ -138,6 +150,7 @@ public class Registration extends AppCompatActivity {
                 params.put("phone", phone);
                 params.put("password", password);
                 params.put("passwordconf", passwordconf);
+                params.put("usertype", usertype);
                 return params;
             }
         };
