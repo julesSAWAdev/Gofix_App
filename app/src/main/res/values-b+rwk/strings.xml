@@ -93,6 +93,8 @@
     <string name="rentalcar">Andikisha companyi ikodesha imodoka</string>
     <string name="companyName">Izaina rya companyi</string>
     <string name="companyOwner">Amazina ya nyiri companyi</string>
+    <string name="service">Serivice</string>
+    <string name="request">Saba Rendez vous</string>
 
 
 </resources>

@@ -7,6 +7,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +33,7 @@ public class Dashboard extends AppCompatActivity {
     ImageView settings;
     String sessionmail,userStored;
     TextView autoser,mechanician,spare,username,rental;
+    Button service;
     private RequestQueue rQueue;
 
 
@@ -44,11 +46,12 @@ public class Dashboard extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_dashboard);
         settings = findViewById(R.id.ivSettings);
-        autoser = findViewById(R.id.autoser);
-        mechanician = findViewById(R.id.mechanic);
+        //autoser = findViewById(R.id.autoser);
+        //mechanician = findViewById(R.id.mechanic);
         spare = findViewById(R.id.spare);
         username = findViewById(R.id.tvUsername);
         rental = findViewById(R.id.rental);
+        service = findViewById(R.id.btnReport);
 
         //tvusername
         SharedPreferences prefs = getSharedPreferences("userLoginData", MODE_PRIVATE);
@@ -69,20 +72,7 @@ public class Dashboard extends AppCompatActivity {
                 //finish();
             }
         });
-        autoser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),autoServices.class));
-                //finish();
-            }
-        });
-        mechanician.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),MechanicalServices.class));
-                //finish();
-            }
-        });
+
         spare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,6 +84,12 @@ public class Dashboard extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),RegCarRental.class));
+            }
+        });
+        service.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),MainActivity.class));
             }
         });
     }

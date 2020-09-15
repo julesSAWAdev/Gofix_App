@@ -89,6 +89,8 @@
     <string name="rentalcar">Register your car rental company here</string>
     <string name="companyName">Company name</string>
     <string name="companyOwner">Company owner name</string>
+    <string name="service">Service</string>
+    <string name="request">Request appointment</string>
 
 
 </resources>
