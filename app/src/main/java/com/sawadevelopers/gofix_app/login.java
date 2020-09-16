@@ -172,7 +172,7 @@ public class login extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(login.this, error.toString(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(login.this, "Make sure you are connected to the internet", Toast.LENGTH_LONG).show();
                         loading.setVisibility(View.GONE);
                         loginbtn.setVisibility(View.VISIBLE);
                     }

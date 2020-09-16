@@ -13,21 +13,47 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.android.material.snackbar.Snackbar;
+import com.jaredrummler.materialspinner.MaterialSpinner;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MaterialSpinner.OnItemSelectedListener {
     ImageView settings;
     TextView tvback,username;
     String sessionmail,userStored;
     private TextView mDisplayDate;
     private Button selectDate;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
+    private MaterialSpinner services,utility,agents,province,district;
+
+    //An ArrayList for Spinner Items
+    private ArrayList<String> provinces;
+    private ArrayList<String> districts;
+    //JSON Array
+    private JSONArray result;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         loadLocale();
@@ -40,6 +66,11 @@ public class MainActivity extends AppCompatActivity {
         username = findViewById(R.id.tvUsername);
         mDisplayDate = findViewById(R.id.tvDate);
         selectDate = findViewById(R.id.selectdate);
+        services = findViewById(R.id.SpService);
+        utility = findViewById(R.id.spUtility);
+        agents = findViewById(R.id.spAgent);
+        province = findViewById(R.id.SpProvince);
+        district = findViewById(R.id.spDistrict);
 
         //tvusername
         SharedPreferences prefs = getSharedPreferences("userLoginData", MODE_PRIVATE);
@@ -49,6 +80,10 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences pref = getSharedPreferences("logindata", MODE_PRIVATE);
         sessionmail = pref.getString("username",null);
 
+        //Initializing the ArrayList
+        provinces = new ArrayList<String>();
+        districts = new ArrayList<String>();
+
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,6 +91,45 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+        //spinners configuration
+
+        services.setItems("Engine", "Electricity", "Pnematic", "Suspension","Painting","Gearbox","AC");
+        services.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+
+            @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+                // Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG).show();
+            }
+        });
+
+        utility.setItems("Repair", "Maintenance");
+        utility.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+
+            @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+                // Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG).show();
+            }
+        });
+
+        agents.setItems("Garage", "private mechanician");
+        agents.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+
+            @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+                // Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG).show();
+            }
+        });
+        province.setOnItemSelectedListener(this);
+        province.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
+                //Snackbar.make(view, "Clicked " + position, Snackbar.LENGTH_LONG).show();
+                int Itemposition = position + 1;
+                //System.out.println(Itemposition);
+               // district.setAdapter(null);
+                getDistricts(Itemposition);
+
+            }
+        });
+        getData();
+
 
         tvback.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,6 +171,85 @@ public class MainActivity extends AppCompatActivity {
         };
 
     }
+    private void getData(){
+        //Creating a string request
+        StringRequest stringRequest = new StringRequest(ProvinceConfig.DATA_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+
+                        try {
+                            JSONArray array = new JSONArray(response);
+                            for (int i = 0;i < array.length(); i++) {
+                                JSONObject jsonObject = array.getJSONObject(i);
+                                String name = jsonObject.getString("name");
+                                provinces.add(name);
+                            }
+                            //Setting adapter to show the items in the spinner
+                            province.setAdapter(new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_spinner_dropdown_item, provinces));
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(MainActivity.this,"Make sure you are connected to the internet",Toast.LENGTH_LONG).show();
+
+                    }
+                });
+
+        //Creating a request queue
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        //Adding request to the queue
+        requestQueue.add(stringRequest);
+
+    }
+    private void getDistricts(int provinceID){
+        district.setAdapter(new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_spinner_dropdown_item, Collections.<String>emptyList()));
+
+        //Creating a string request
+        StringRequest stringRequest = new StringRequest("http://gofix.rw/android/getDistrict.php?pro_id="+provinceID,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+
+                        try {
+                            JSONArray array = new JSONArray(response);
+                            for (int i = 0;i < array.length(); i++) {
+                                JSONObject jsonObject = array.getJSONObject(i);
+                                String name = jsonObject.getString("district_name");
+                                districts.add(name);
+                            }
+                            //Setting adapter to show the items in the spinner
+                            district.setAdapter(new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_spinner_dropdown_item, districts));
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(MainActivity.this,"Make sure you are connected to the internet",Toast.LENGTH_LONG).show();
+
+                    }
+                });
+
+        //Creating a request queue
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        //Adding request to the queue
+        requestQueue.add(stringRequest);
+    }
+
+
 
     private void setLocale(String lang) {
 
@@ -118,5 +271,10 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
         String language = prefs.getString("My_lang", "");
         setLocale(language);
+    }
+
+    @Override
+    public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
+
     }
 }

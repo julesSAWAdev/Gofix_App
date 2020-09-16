@@ -125,7 +125,7 @@
                 android:layout_marginBottom="5dp"
                 android:background="@drawable/rectangle">
                 <com.jaredrummler.materialspinner.MaterialSpinner
-                    android:id="@+id/spServices"
+                    android:id="@+id/spUtility"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     />

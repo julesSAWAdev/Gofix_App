@@ -136,7 +136,7 @@ public class Registration extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(Registration.this, error.toString(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(Registration.this, "Make sure you are connected to the internet", Toast.LENGTH_LONG).show();
                         loading.setVisibility(View.GONE);
                         register.setVisibility(View.VISIBLE);
                     }

@@ -142,7 +142,7 @@ public class CarRentals extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 progressBar.setVisibility(View.GONE);
-                Toast.makeText(CarRentals.this,error.toString(),Toast.LENGTH_LONG).show();
+                Toast.makeText(CarRentals.this,"Make sure you are connected to the internet",Toast.LENGTH_LONG).show();
 
             }
         });
