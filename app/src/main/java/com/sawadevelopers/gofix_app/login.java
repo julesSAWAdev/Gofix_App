@@ -1,6 +1,7 @@
 package com.sawadevelopers.gofix_app;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -49,6 +50,7 @@ public class login extends AppCompatActivity {
     private RequestQueue rQueue;
     private SharedPrefrencesHelper sharedPrefrencesHelper;
     ProgressBar loading;
+    private ProgressDialog progressDialog;
     private static String URL_Login = "http://gofix.rw/android/Login.php";
 
     @Override
@@ -56,7 +58,9 @@ public class login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         loadLocale();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        progressDialog = new ProgressDialog(this);
         setContentView(R.layout.activity_login);
+
 
         callSignUp = findViewById(R.id.do_register);
         image = findViewById(R.id.logoImage);
@@ -123,8 +127,12 @@ public class login extends AppCompatActivity {
     }
 
     private void loginAction(){
-        loading.setVisibility(View.VISIBLE);
-        loginbtn.setVisibility(View.GONE);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        //Without this user can hide loader by tapping outside screen
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Please wait");
+        progressDialog.show();
+
 
         final String username = this.etEmailAddress.getText().toString().trim();
         final String password = this.etPassword.getText().toString().trim();
@@ -132,15 +140,17 @@ public class login extends AppCompatActivity {
         if(username.isEmpty()){
             etEmailAddress.setError("Email or phone required");
 
-            loading.setVisibility(View.GONE);
-            loginbtn.setVisibility(View.VISIBLE);
+
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.dismiss();
             return;
         }
         if (password.isEmpty()) {
             etPassword.setError("Password is required");
             etPassword.requestFocus();
-            loading.setVisibility(View.GONE);
-            loginbtn.setVisibility(View.VISIBLE);
+
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.dismiss();
             return;
         }
 
@@ -149,6 +159,8 @@ public class login extends AppCompatActivity {
             public void onResponse(String response) {
                 rQueue.getCache().clear();
                 try {
+                    progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                    progressDialog.dismiss();
                     JSONObject jsonObject = new JSONObject(response);
                     if (jsonObject.optString("success").equals("1")) {
                        SharedPreferences pref = getSharedPreferences("logindata", MODE_PRIVATE);
@@ -161,8 +173,8 @@ public class login extends AppCompatActivity {
                         finish();
                     } else {
                         Toast.makeText(login.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-                        loading.setVisibility(View.GONE);
-                        loginbtn.setVisibility(View.VISIBLE);
+                        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                        progressDialog.dismiss();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -173,8 +185,10 @@ public class login extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(login.this, "Make sure you are connected to the internet", Toast.LENGTH_LONG).show();
-                        loading.setVisibility(View.GONE);
-                        loginbtn.setVisibility(View.VISIBLE);
+
+                        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                        progressDialog.dismiss();
+
                     }
                 }) {
             @Override

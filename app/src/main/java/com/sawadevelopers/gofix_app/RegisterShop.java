@@ -1,6 +1,7 @@
 package com.sawadevelopers.gofix_app;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -41,11 +42,14 @@ public class RegisterShop extends AppCompatActivity {
     private RequestQueue rQueue;
     TextView tvback,username;
 
+    private ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadLocale();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        progressDialog = new ProgressDialog(this);
         setContentView(R.layout.activity_register_shop);
 
 
@@ -92,8 +96,11 @@ public class RegisterShop extends AppCompatActivity {
 
     }
    private void RegisterShop(){
-       loader.setVisibility(View.VISIBLE);
-       registershopp.setVisibility(View.GONE);
+       progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+       //Without this user can hide loader by tapping outside screen
+       progressDialog.setCancelable(false);
+       progressDialog.setMessage("Registration in progress");
+       progressDialog.show();
 
        final String NameShop = this.shopname.getText().toString();
        final String ShopAdress = this.address.getText().toString();
@@ -114,6 +121,8 @@ public class RegisterShop extends AppCompatActivity {
                    public void onResponse(String response) {
                        rQueue.getCache().clear();
                        try {
+                           progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                           progressDialog.dismiss();
                            JSONObject jsonObject = new JSONObject(response);
                            if (jsonObject.optString("success").equals("1")) {
                                Toast.makeText(RegisterShop.this, "Shop Added Successfully", Toast.LENGTH_SHORT).show();
@@ -121,8 +130,8 @@ public class RegisterShop extends AppCompatActivity {
                                finish();
                            } else {
                                Toast.makeText(RegisterShop.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-                               loader.setVisibility(View.GONE);
-                               registershopp.setVisibility(View.VISIBLE);
+                               progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                               progressDialog.dismiss();
                            }
                        } catch (JSONException e) {
                            e.printStackTrace();
@@ -132,9 +141,9 @@ public class RegisterShop extends AppCompatActivity {
                new Response.ErrorListener() {
                    @Override
                    public void onErrorResponse(VolleyError error) {
-                       Toast.makeText(RegisterShop.this, error.toString(), Toast.LENGTH_LONG).show();
-                       loader.setVisibility(View.GONE);
-                       registershopp.setVisibility(View.VISIBLE);
+                       Toast.makeText(RegisterShop.this, "Make sure you have internet", Toast.LENGTH_LONG).show();
+                       progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                       progressDialog.dismiss();
                    }
                }) {
            @Override

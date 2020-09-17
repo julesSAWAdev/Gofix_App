@@ -130,6 +130,7 @@
                     android:layout_height="wrap_content"
                     />
             </com.google.android.material.textfield.TextInputLayout>
+
         </LinearLayout>
 
         <LinearLayout
@@ -161,6 +162,8 @@
                     android:layout_height="wrap_content"
                     />
             </com.google.android.material.textfield.TextInputLayout>
+
+
         </LinearLayout>
 
         <LinearLayout

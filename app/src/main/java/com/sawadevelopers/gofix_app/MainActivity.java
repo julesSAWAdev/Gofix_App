@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -52,12 +53,14 @@ public class MainActivity extends AppCompatActivity implements MaterialSpinner.O
     private ArrayList<String> districts;
     //JSON Array
     private JSONArray result;
+    private ProgressDialog progressDialog;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         loadLocale();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        progressDialog = new ProgressDialog(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -172,13 +175,20 @@ public class MainActivity extends AppCompatActivity implements MaterialSpinner.O
 
     }
     private void getData(){
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        //Without this user can hide loader by tapping outside screen
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Retrieving Provinces");
+        progressDialog.show();
+
         //Creating a string request
         StringRequest stringRequest = new StringRequest(ProvinceConfig.DATA_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
 
-
+                        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                        progressDialog.dismiss();
                         try {
                             JSONArray array = new JSONArray(response);
                             for (int i = 0;i < array.length(); i++) {
@@ -198,7 +208,8 @@ public class MainActivity extends AppCompatActivity implements MaterialSpinner.O
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(MainActivity.this,"Make sure you are connected to the internet",Toast.LENGTH_LONG).show();
-
+                        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                        progressDialog.hide();
                     }
                 });
 
@@ -211,13 +222,18 @@ public class MainActivity extends AppCompatActivity implements MaterialSpinner.O
     }
     private void getDistricts(int provinceID){
         district.setAdapter(new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_spinner_dropdown_item, Collections.<String>emptyList()));
-
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        //Without this user can hide loader by tapping outside screen
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Retrieving districts");
+        progressDialog.show();
         //Creating a string request
         StringRequest stringRequest = new StringRequest("http://gofix.rw/android/getDistrict.php?pro_id="+provinceID,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
+                        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                        progressDialog.hide();
 
                         try {
                             JSONArray array = new JSONArray(response);
@@ -238,7 +254,8 @@ public class MainActivity extends AppCompatActivity implements MaterialSpinner.O
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(MainActivity.this,"Make sure you are connected to the internet",Toast.LENGTH_LONG).show();
-
+                        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                        progressDialog.hide();
                     }
                 });
 

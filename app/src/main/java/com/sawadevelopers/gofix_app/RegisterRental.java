@@ -1,6 +1,7 @@
 package com.sawadevelopers.gofix_app;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -38,11 +39,13 @@ public class RegisterRental extends AppCompatActivity {
     ProgressBar loader;
     private RequestQueue rQueue;
     TextView tvback,username;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         loadLocale();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        progressDialog = new ProgressDialog(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_rental);
 
@@ -90,8 +93,11 @@ public class RegisterRental extends AppCompatActivity {
     }
 
     private void RegisterRental(){
-        loader.setVisibility(View.VISIBLE);
-        registershopp.setVisibility(View.GONE);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        //Without this user can hide loader by tapping outside screen
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Registration in progress");
+        progressDialog.show();
 
         final String NameShop = this.shopname.getText().toString();
         final String ShopAdress = this.address.getText().toString();
@@ -111,6 +117,8 @@ public class RegisterRental extends AppCompatActivity {
                     public void onResponse(String response) {
                         rQueue.getCache().clear();
                         try {
+                            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                            progressDialog.dismiss();
                             JSONObject jsonObject = new JSONObject(response);
                             if (jsonObject.optString("success").equals("1")) {
                                 Toast.makeText(RegisterRental.this, "Company Added Successfully", Toast.LENGTH_SHORT).show();
@@ -118,8 +126,8 @@ public class RegisterRental extends AppCompatActivity {
                                 finish();
                             } else {
                                 Toast.makeText(RegisterRental.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-                                loader.setVisibility(View.GONE);
-                                registershopp.setVisibility(View.VISIBLE);
+                                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                                progressDialog.dismiss();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -129,9 +137,9 @@ public class RegisterRental extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(RegisterRental.this, error.toString(), Toast.LENGTH_LONG).show();
-                        loader.setVisibility(View.GONE);
-                        registershopp.setVisibility(View.VISIBLE);
+                        Toast.makeText(RegisterRental.this, "Make sure you have internet", Toast.LENGTH_LONG).show();
+                        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                        progressDialog.dismiss();
                     }
                 }) {
             @Override

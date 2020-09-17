@@ -1,6 +1,7 @@
 package com.sawadevelopers.gofix_app;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -44,6 +45,7 @@ public class Registration extends AppCompatActivity {
     ImageView image;
     private MaterialSpinner spinner;
     private ArrayList<String> users;
+    private ProgressDialog progressDialog;
     private static String URL_REGIST = "http://gofix.rw/android/Register.php";
     private static String URL_GETUSER = "http://gofix.rw/android/fetch_user_type.php";
 
@@ -53,6 +55,7 @@ public class Registration extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         loadLocale();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        progressDialog = new ProgressDialog(this);
         setContentView(R.layout.activity_registration);
 
         //hooks
@@ -99,8 +102,11 @@ public class Registration extends AppCompatActivity {
 
     private void Register() {
 
-        loading.setVisibility(View.VISIBLE);
-        register.setVisibility(View.GONE);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        //Without this user can hide loader by tapping outside screen
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Please wait Registering you...");
+        progressDialog.show();
 
         final String firstname = this.firstname.getText().toString();
         final String lastname = this.lastname.getText().toString();
@@ -118,6 +124,8 @@ public class Registration extends AppCompatActivity {
                     public void onResponse(String response) {
                         rQueue.getCache().clear();
                         try {
+                            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                            progressDialog.dismiss();
                             JSONObject jsonObject = new JSONObject(response);
                             if (jsonObject.optString("success").equals("1")) {
                                 Toast.makeText(Registration.this, "Registered Successfully! Now Login", Toast.LENGTH_SHORT).show();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                Toast.makeText(Registration.this, "Registered Successfully! Now                  Login", Toast.LENGTH_SHORT).show();
@@ -125,8 +133,8 @@ public class Registration extends AppCompatActivity {
                                 finish();
                             } else {
                                 Toast.makeText(Registration.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-                                loading.setVisibility(View.GONE);
-                                register.setVisibility(View.VISIBLE);
+                                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                                progressDialog.dismiss();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -137,8 +145,8 @@ public class Registration extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(Registration.this, "Make sure you are connected to the internet", Toast.LENGTH_LONG).show();
-                        loading.setVisibility(View.GONE);
-                        register.setVisibility(View.VISIBLE);
+                        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                        progressDialog.dismiss();
                     }
                 }) {
             @Override
