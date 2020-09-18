@@ -18,10 +18,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -36,6 +38,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Locale;
 
@@ -43,18 +46,24 @@ public class MainActivity extends AppCompatActivity implements MaterialSpinner.O
     ImageView settings;
     TextView tvback,username;
     String sessionmail,userStored;
+    String utilitys;
     private TextView mDisplayDate;
     private Button selectDate;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
-    private MaterialSpinner services,utility,agents,province,district;
+    private MaterialSpinner services,utility,agents,province,district,sResult;
 
     //An ArrayList for Spinner Items
     private ArrayList<String> provinces;
     private ArrayList<String> districts;
+    private ArrayList<String> results;
+    public ArrayList<Integer> ids;
     //JSON Array
     private JSONArray result;
     private ProgressDialog progressDialog;
-
+    private  TextView Gnumber,Gname,Gdesc,Gloc;
+    private String selUtility;
+    private String districtName;
+    LinearLayout info;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +83,12 @@ public class MainActivity extends AppCompatActivity implements MaterialSpinner.O
         agents = findViewById(R.id.spAgent);
         province = findViewById(R.id.SpProvince);
         district = findViewById(R.id.spDistrict);
-
+        Gname = findViewById(R.id.garageName);
+        Gnumber = findViewById(R.id.garageNumber);
+        Gdesc = findViewById(R.id.garageDescription);
+        Gloc = findViewById(R.id.garageLocation);
+        sResult = findViewById(R.id.spResults);
+        info = findViewById(R.id.info);
         //tvusername
         SharedPreferences prefs = getSharedPreferences("userLoginData", MODE_PRIVATE);
         userStored = prefs.getString("fullusername", null);
@@ -82,10 +96,13 @@ public class MainActivity extends AppCompatActivity implements MaterialSpinner.O
 
         SharedPreferences pref = getSharedPreferences("logindata", MODE_PRIVATE);
         sessionmail = pref.getString("username",null);
-
+        //
+        selUtility = "Garage";
         //Initializing the ArrayList
         provinces = new ArrayList<String>();
         districts = new ArrayList<String>();
+        results = new ArrayList<String>();
+        ids = new ArrayList<Integer>();
 
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,6 +134,10 @@ public class MainActivity extends AppCompatActivity implements MaterialSpinner.O
 
             @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
                 // Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG).show();
+                if (position == 1)
+                 selUtility = "private";
+                else
+                 selUtility = item;
             }
         });
         province.setOnItemSelectedListener(this);
@@ -131,7 +152,32 @@ public class MainActivity extends AppCompatActivity implements MaterialSpinner.O
 
             }
         });
+
+        sResult.setOnItemSelectedListener(this);
+        sResult.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
+                int agent_id = ids.get(position);
+                System.out.println(agent_id);
+                getinformation(agent_id,selUtility);
+                System.out.println(selUtility);
+
+            }
+        });
+        district.setOnItemSelectedListener(this);
+        district.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
+                 districtName = item.toString();
+                 System.out.println(districtName);
+                 System.out.println(selUtility);
+
+                getResults(districtName,selUtility);
+
+            }
+        });
         getData();
+
 
 
         tvback.setOnClickListener(new View.OnClickListener() {
@@ -174,7 +220,129 @@ public class MainActivity extends AppCompatActivity implements MaterialSpinner.O
         };
 
     }
+    private void getinformation(int id_agent, String util){
+        final int agentid = id_agent;
+        final String agent = util;
+        String URL = "http://gofix.rw/android/getInfo.php?agentid="+agentid+"&agent="+util;
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        //Without this user can hide loader by tapping outside screen
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Retrieving results");
+        progressDialog.show();
+
+        //Creating a string request
+        StringRequest stringRequest = new StringRequest(URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                        progressDialog.dismiss();
+                        try {
+                            JSONArray array = new JSONArray(response);
+                            for (int i = 0;i < array.length(); i++) {
+                                JSONObject jsonObject = array.getJSONObject(i);
+                                String name = jsonObject.getString("name");
+                                String phone = jsonObject.getString("phone");
+                                String location = jsonObject.getString("district_name");
+                                String descr = jsonObject.getString("description");
+                                int id = jsonObject.getInt("id");
+                                results.add(name);
+                                ids.add(id);
+                                Gloc.setText(location);
+                                Gdesc.setText(descr);
+                                Gname.setText(name);
+                                Gnumber.setText(phone);
+                                info.setVisibility(View.VISIBLE);
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(MainActivity.this,"Make sure you are connected to the internet",Toast.LENGTH_LONG).show();
+                        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                        progressDialog.hide();
+                    }
+                });
+
+        //Creating a request queue
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        //Adding request to the queue
+        requestQueue.add(stringRequest);
+    }
+    private void getResults(String dist, String utils){
+        final String util = utils;
+        final String distr = dist;
+        String URL = "http://gofix.rw/android/getResult.php?district="+distr+"&agent="+util;
+        results.clear();
+        ids.clear();
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        //Without this user can hide loader by tapping outside screen
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Retrieving results");
+        progressDialog.show();
+
+        //Creating a string request
+        StringRequest stringRequest = new StringRequest(URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                        progressDialog.dismiss();
+                        try {
+                            JSONArray array = new JSONArray(response);
+                            for (int i = 0;i < array.length(); i++) {
+                                JSONObject jsonObject = array.getJSONObject(i);
+                                String name = jsonObject.getString("name");
+                                String phone = jsonObject.getString("phone");
+                                String location = jsonObject.getString("district_name");
+                                String descr = jsonObject.getString("description");
+                                int id = jsonObject.getInt("id");
+                                results.add(name);
+                                ids.add(id);
+                                //Gloc.setText(location);
+                                //Gdesc.setText(descr);
+                                //Gname.setText(name);
+                                //Gnumber.setText(phone);
+                            }
+                            //System.out.println(ids);
+                            //Setting adapter to show the items in the spinner
+                            sResult.setAdapter(new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_spinner_dropdown_item, results));
+                            //getDistricts(1);
+                        } catch (JSONException e) {
+                            Toast.makeText(MainActivity.this,"No Garage/Mechanician available in that area",Toast.LENGTH_LONG).show();
+                            sResult.setAdapter(new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_spinner_dropdown_item, results));
+
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(MainActivity.this,"Make sure you are connected to the internet",Toast.LENGTH_LONG).show();
+                        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                        progressDialog.hide();
+                    }
+                });
+
+        //Creating a request queue
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        //Adding request to the queue
+        requestQueue.add(stringRequest);
+
+
+    }
     private void getData(){
+        provinces.clear();
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         //Without this user can hide loader by tapping outside screen
         progressDialog.setCancelable(false);
@@ -198,7 +366,7 @@ public class MainActivity extends AppCompatActivity implements MaterialSpinner.O
                             }
                             //Setting adapter to show the items in the spinner
                             province.setAdapter(new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_spinner_dropdown_item, provinces));
-
+                            getDistricts(1);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -221,7 +389,9 @@ public class MainActivity extends AppCompatActivity implements MaterialSpinner.O
 
     }
     private void getDistricts(int provinceID){
-        district.setAdapter(new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_spinner_dropdown_item, Collections.<String>emptyList()));
+        //ArrayList<String> districtss = new ArrayList<String>();
+        //district.setAdapter(new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_spinner_dropdown_item, districtss));
+       districts.clear();
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         //Without this user can hide loader by tapping outside screen
         progressDialog.setCancelable(false);
@@ -258,12 +428,17 @@ public class MainActivity extends AppCompatActivity implements MaterialSpinner.O
                         progressDialog.hide();
                     }
                 });
-
+        int MY_SOCKET_TIMEOUT_MS=20000;
         //Creating a request queue
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
         //Adding request to the queue
         requestQueue.add(stringRequest);
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                MY_SOCKET_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
     }
 
 

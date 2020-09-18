@@ -291,8 +291,50 @@
                 android:gravity="center_vertical" />
 
             <!-- Spinner Element -->
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="5dp">
+                <TextView
+                    android:id="@+id/details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/details"
+                    android:textColor="@color/black"
+                    android:textSize="14dp"
+                    android:layout_marginBottom="5dp"/>
+                <TextView
+                    android:id="@+id/garageName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    />
+                <TextView
+                    android:id="@+id/garageNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    />
+                <TextView
+                    android:id="@+id/garageDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    />
+                <TextView
+                    android:id="@+id/garageLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    />
+            </LinearLayout>
 
-        </LinearLayout><ProgressBar
+        </LinearLayout>
+
+        <ProgressBar
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
