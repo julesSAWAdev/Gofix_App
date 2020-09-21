@@ -32,7 +32,7 @@ public class Dashboard extends AppCompatActivity {
 
     ImageView settings;
     String sessionmail,userStored;
-    TextView autoser,mechanician,spare,username,rental;
+    TextView autoser,mechanician,spare,username,rental,driver;
     Button service;
     private RequestQueue rQueue;
 
@@ -52,6 +52,7 @@ public class Dashboard extends AppCompatActivity {
         username = findViewById(R.id.tvUsername);
         rental = findViewById(R.id.rental);
         service = findViewById(R.id.btnReport);
+        driver = findViewById(R.id.driverhire);
 
         //tvusername
         SharedPreferences prefs = getSharedPreferences("userLoginData", MODE_PRIVATE);
@@ -90,6 +91,12 @@ public class Dashboard extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),MainActivity.class));
+            }
+        });
+        driver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),driverHire.class));
             }
         });
     }

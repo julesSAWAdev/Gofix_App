@@ -70,6 +70,7 @@
 
     <string name="book">Book Now</string>
     <string name="regShop">Register your shop here</string>
+    <string name="regDrivers">Register yourself here</string>
     <string name="shopname">Shop name</string>
     <string name="Address">Commercial Address</string>
     <string name="tin">Tin number</string>
@@ -92,6 +93,13 @@
     <string name="service">Car Service</string>
     <string name="request">Request appointment</string>
     <string name="details">More Information</string>
+    <string name="driverhire">Driver hire</string>
+    <string name="finddrive">Find a driver</string>
+    <string name="Registerdrive">Register as a driver</string>
+    <string name="name">Name</string>
+    <string name="id">ID number</string>
+    <string name="diverlicense">Driving license Number</string>
+    <string name="category">Categories (Letters only)</string>
 
 
 </resources>
