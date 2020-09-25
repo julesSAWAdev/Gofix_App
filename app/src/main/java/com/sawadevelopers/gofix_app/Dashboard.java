@@ -32,8 +32,7 @@ public class Dashboard extends AppCompatActivity {
 
     ImageView settings;
     String sessionmail,userStored;
-    TextView autoser,mechanician,spare,username,rental,driver;
-    Button service;
+    TextView autoser,mechanician,spare,username,rental,driver,service;
     private RequestQueue rQueue;
 
 

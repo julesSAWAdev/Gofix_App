@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -40,7 +41,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements MaterialSpinner.OnItemSelectedListener {
     ImageView settings;
@@ -48,9 +51,11 @@ public class MainActivity extends AppCompatActivity implements MaterialSpinner.O
     String sessionmail,userStored;
     String utilitys;
     private TextView mDisplayDate;
-    private Button selectDate;
+    private Button selectDate,btnRequest;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private MaterialSpinner services,utility,agents,province,district,sResult;
+    private int agent_id;
+    private RequestQueue rQueue;
 
     //An ArrayList for Spinner Items
     private ArrayList<String> provinces;
@@ -64,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements MaterialSpinner.O
     private String selUtility;
     private String districtName;
     LinearLayout info;
+    String Request_url = "\"http://gofix.rw/android/request_agent.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +95,9 @@ public class MainActivity extends AppCompatActivity implements MaterialSpinner.O
         Gloc = findViewById(R.id.garageLocation);
         sResult = findViewById(R.id.spResults);
         info = findViewById(R.id.info);
+        btnRequest = findViewById(R.id.register);
+
+
         //tvusername
         SharedPreferences prefs = getSharedPreferences("userLoginData", MODE_PRIVATE);
         userStored = prefs.getString("fullusername", null);
@@ -157,8 +166,9 @@ public class MainActivity extends AppCompatActivity implements MaterialSpinner.O
         sResult.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
-                int agent_id = ids.get(position);
+                 agent_id = ids.get(position);
                 System.out.println(agent_id);
+                System.out.println(sessionmail);
                 getinformation(agent_id,selUtility);
                 System.out.println(selUtility);
 
@@ -187,6 +197,12 @@ public class MainActivity extends AppCompatActivity implements MaterialSpinner.O
                 startActivity(intent);
                 finish();
                 overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+            }
+        });
+        btnRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SendRequest();
             }
         });
 
@@ -438,6 +454,90 @@ public class MainActivity extends AppCompatActivity implements MaterialSpinner.O
                 MY_SOCKET_TIMEOUT_MS,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+    }
+
+    public void SendRequest(){
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        //Without this user can hide loader by tapping outside screen
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Registration in progress");
+        progressDialog.show();
+
+        final String finalUtility = this.utility.getText().toString();
+        final String finalAgent = this.agents.getText().toString();
+        final String finalProvince = this.province.getText().toString();
+        final String finalDistrict = this.district.getText().toString();
+        final int finalAgentid = this.agent_id;
+        final String agentId = Integer.toString(finalAgentid);
+        final String finalUser = this.sessionmail.toString();
+        final String finalDate = this.mDisplayDate.getText().toString();
+
+
+
+
+
+        // System.out.println("utility : "+finalUtility);
+       // System.out.println("agent : "+finalAgent);
+        //System.out.println("province : "+finalProvince);
+     //   System.out.println("district : "+finalDistrict);
+       // System.out.println("agentd : "+finalAgentid);
+       // System.out.println("user : "+finalUser);
+       // System.out.println("date : "+finalDate);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Request_url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        rQueue.getCache().clear();
+                        try {
+                            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                            progressDialog.dismiss();
+                            JSONObject jsonObject = new JSONObject(response);
+                            if (jsonObject.optString("success").equals("1")) {
+                                Toast.makeText(MainActivity.this, "Request Added Successfully", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(getBaseContext(), requestSuccess.class));
+                                finish();
+                            } else {
+                                Toast.makeText(MainActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                                progressDialog.dismiss();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(MainActivity.this, "Make sure you have internet", Toast.LENGTH_LONG).show();
+                        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                        progressDialog.dismiss();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("utility", finalUtility);
+                params.put("agent", finalAgent);
+                params.put("province", finalProvince);
+                params.put("district", finalDistrict);
+                params.put("agentid", agentId);
+                params.put("userMail", finalUser);
+                params.put("datereq", finalDate);
+                return params;
+            }
+        };
+        int MY_SOCKET_TIMEOUT_MS=5000000;
+        rQueue = Volley.newRequestQueue(MainActivity.this);
+        rQueue.add(stringRequest);
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                MY_SOCKET_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+
 
     }
 

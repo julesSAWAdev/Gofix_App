@@ -1,6 +1,6 @@
 package com.sawadevelopers.gofix_app;
 
-public class driver {
+public class Driver {
     private String driver_id;
     private  String driver_name;
     private  String idnumber;
@@ -9,8 +9,9 @@ public class driver {
     private  String category;
     private  String adress;
     private  String created_at;
+    private String image;
 
-    public driver(String driver_id, String driver_name, String idnumber, String dlnumber, String phone, String category, String adress, String created_at) {
+    public Driver(String driver_id, String driver_name, String idnumber, String dlnumber, String phone, String category, String adress, String created_at, String image) {
         this.driver_id = driver_id;
         this.driver_name = driver_name;
         this.idnumber = idnumber;
@@ -19,6 +20,7 @@ public class driver {
         this.category = category;
         this.adress = adress;
         this.created_at = created_at;
+        this.image = image;
     }
 
     public String getDriver_id() {
@@ -83,5 +85,13 @@ public class driver {
 
     public void setCreated_at(String created_at) {
         this.created_at = created_at;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

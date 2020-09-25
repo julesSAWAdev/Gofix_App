@@ -100,6 +100,7 @@
     <string name="id">ID number</string>
     <string name="diverlicense">Driving license Number</string>
     <string name="category">Categories (Letters only)</string>
+    <string name="select">Select date of service</string>
 
 
 </resources>

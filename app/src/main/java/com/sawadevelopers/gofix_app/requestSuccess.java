@@ -4,11 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class driverDetailed extends AppCompatActivity {
+public class requestSuccess extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_driver_detailed);
+        setContentView(R.layout.activity_request_success);
     }
 }

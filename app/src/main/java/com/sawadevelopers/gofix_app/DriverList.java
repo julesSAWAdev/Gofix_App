@@ -11,7 +11,6 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -32,32 +31,32 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class finDriver extends AppCompatActivity {
-    private List<driver> drivers;
-    private DriverAdapter mAdapter;
+public class DriverList extends AppCompatActivity {
+    private List<Driver> driver;
+    private RecyclerView.Adapter mAdapter;
+    private ProgressBar progressBar;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager manager;
-    private ProgressBar progressBar;
     TextView tvback,username;
     ImageView settings;
     String userStored,sessionmail;
     private final String BASE_URL = "http://gofix.rw/android/getDrivers.php";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         loadLocale();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_fin_driver);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_driver_list);
+
         //hooks
         progressBar = findViewById(R.id.progressbar);
-        recyclerView = findViewById(R.id.cars_recyclerView);
+        recyclerView = findViewById(R.id.driver_recyclerView);
         tvback = findViewById(R.id.back);
         username = findViewById(R.id.tvUsername);
         settings = findViewById(R.id.ivSettings);
-        manager = new GridLayoutManager(finDriver.this,2);
+        manager = new GridLayoutManager(DriverList.this,2);
         recyclerView.setLayoutManager(manager);
-        drivers = new ArrayList<>();
+        driver = new ArrayList<>();
 
         //tvusername
         SharedPreferences prefs = getSharedPreferences("userLoginData", MODE_PRIVATE);
@@ -79,7 +78,7 @@ public class finDriver extends AppCompatActivity {
         tvback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent =  new Intent(finDriver.this,driverHire.class);
+                Intent intent =  new Intent(DriverList.this,driverHire.class);
                 startActivity(intent);
                 finish();
                 overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
@@ -89,6 +88,7 @@ public class finDriver extends AppCompatActivity {
         getDriver();
 
     }
+
     private void getDriver(){
         progressBar.setVisibility(View.VISIBLE);
 
@@ -98,42 +98,39 @@ public class finDriver extends AppCompatActivity {
                     public void onResponse(String response) {
                         progressBar.setVisibility(View.GONE);
                         try {
-
-                            JSONArray array = new JSONArray(response);
-                            for (int i = 0;i < array.length(); i++){
-                                JSONObject jsonObject = array.getJSONObject(i);
+                            JSONArray jsonArray = new JSONArray(response);
+                            for (int i = 0;i < jsonArray.length(); i++){
+                                JSONObject jsonObject = jsonArray.getJSONObject(i);
 
                                 String id = jsonObject.getString("driver_id");
                                 String name = jsonObject.getString("driver_name");
-                                String idnumber = jsonObject.getString("NID");
-                                String dlnumber = jsonObject.getString("license_number");
-                                String phone =jsonObject.getString("phone");
-                                String category =jsonObject.getString("categories");
+                                String image = jsonObject.getString("image");
+                                String phone = jsonObject.getString("phone");
                                 String address = jsonObject.getString("address");
-                                String created = jsonObject.getString("created_at");
-                                // System.out.println(image1);
+                                String idnumber = jsonObject.getString("NID");
+                                String license = jsonObject.getString("license_number");
+                                String category = jsonObject.getString("categories");
+                                String created = jsonObject.getString("created");
 
-                                driver driver = new driver(id,name,idnumber,dlnumber,phone,category,address,created);
-                                drivers.add(driver);
+                                Driver drivers = new Driver(id,name,idnumber,license,phone,category,address,created,image);
+                                driver.add(drivers);
+
+
+
 
                             }
 
-                        }catch (Exception e){
-
+                        } catch (Exception e) {
                         }
-
-                        mAdapter = new DriverAdapter(finDriver.this, drivers);
+                        mAdapter = new DriverRecyclerAdapter(DriverList.this, driver);
                         recyclerView.setAdapter(mAdapter);
-
-
 
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 progressBar.setVisibility(View.GONE);
-                Toast.makeText(finDriver.this,"Make sure you are connected to the internet",Toast.LENGTH_LONG).show();
-
+                Toast.makeText(DriverList.this,error.toString(),Toast.LENGTH_LONG).show();
             }
         });
         int MY_SOCKET_TIMEOUT_MS=5000000;
@@ -146,7 +143,7 @@ public class finDriver extends AppCompatActivity {
     }
     private void setLocale(String lang) {
 
-        Locale locale = new Locale(lang);
+        Locale locale =new Locale(lang);
         Locale.setDefault(locale);
 
         Configuration config  = new Configuration();

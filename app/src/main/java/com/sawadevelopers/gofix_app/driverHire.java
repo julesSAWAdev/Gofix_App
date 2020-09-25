@@ -62,7 +62,7 @@ public class driverHire extends AppCompatActivity {
         findDriver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), finDriver.class));
+                startActivity(new Intent(getApplicationContext(), DriverList.class));
                 finish();
             }
         });
