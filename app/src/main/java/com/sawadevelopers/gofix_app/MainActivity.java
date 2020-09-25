@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements MaterialSpinner.O
     private String selUtility;
     private String districtName;
     LinearLayout info;
-    String Request_url = "\"http://gofix.rw/android/request_agent.php";
+    String Request_url = "http://gofix.rw/android/requestagent.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -461,7 +461,7 @@ public class MainActivity extends AppCompatActivity implements MaterialSpinner.O
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         //Without this user can hide loader by tapping outside screen
         progressDialog.setCancelable(false);
-        progressDialog.setMessage("Registration in progress");
+        progressDialog.setMessage("Request in progress");
         progressDialog.show();
 
         final String finalUtility = this.utility.getText().toString();
@@ -474,16 +474,6 @@ public class MainActivity extends AppCompatActivity implements MaterialSpinner.O
         final String finalDate = this.mDisplayDate.getText().toString();
 
 
-
-
-
-        // System.out.println("utility : "+finalUtility);
-       // System.out.println("agent : "+finalAgent);
-        //System.out.println("province : "+finalProvince);
-     //   System.out.println("district : "+finalDistrict);
-       // System.out.println("agentd : "+finalAgentid);
-       // System.out.println("user : "+finalUser);
-       // System.out.println("date : "+finalDate);
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Request_url,
                 new Response.Listener<String>() {

@@ -82,7 +82,8 @@
 
     <string name="order">Order Now</string>
 
-    <string name="thankspare">Thank your for ordering  with us, We will contact you as soon as possible</string>
+    <string name="thankspare">Thank you for ordering  with us, in meantime you can contact the saler</string>
+    <string name="thankreq">Thank you for service request, in meantime you can contact the service agent</string>
 
     <string name="contact">Contacts</string>
     <string name="rentcar">Rent a car</string>
