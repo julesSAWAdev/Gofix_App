@@ -73,7 +73,7 @@ public class Registration extends AppCompatActivity {
       //  spinner.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
        // getData();
 
-     spinner.setItems("Car owner", "Garage", "Private mechanician", "Car rental");
+     spinner.setItems("Car owner", "Shop owner","Garage", "Private mechanician", "Car rental");
         spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
             @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {

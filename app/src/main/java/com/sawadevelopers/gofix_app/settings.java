@@ -26,7 +26,7 @@ import org.json.JSONObject;
 import java.util.Locale;
 
 public class settings extends AppCompatActivity {
-    TextView tvback,username,phone,logout;
+    TextView tvback,username,phone,logout,ChangePassword;
     private RequestQueue rQueue;
     String userStored,phoneStored;
 
@@ -43,6 +43,7 @@ public class settings extends AppCompatActivity {
         username = findViewById(R.id.tvUsername);
         phone = findViewById(R.id.phone);
         logout = findViewById(R.id.tvLogout);
+        ChangePassword = findViewById(R.id.tvChangePassword);
 
         //tvusername
         SharedPreferences prefs = getSharedPreferences("userLoginData", MODE_PRIVATE);
@@ -59,6 +60,15 @@ public class settings extends AppCompatActivity {
                startActivity(intent);
                finish();
                 overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+            }
+        });
+        ChangePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =  new Intent(settings.this,ChangePassword.class);
+                startActivity(intent);
+                finish();
+                //overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
             }
         });
         logout.setOnClickListener(new View.OnClickListener() {

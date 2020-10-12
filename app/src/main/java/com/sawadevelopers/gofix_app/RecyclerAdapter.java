@@ -81,6 +81,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
                 intent.putExtra("rent_id",car.getRent_id());
                 intent.putExtra("phone",car.getPhone());
                 intent.putExtra("address",car.getAddress());
+                intent.putExtra("hourprice",car.getHourp());
+                intent.putExtra("car_id",car.getCar_id());
 
 
                 mContext.startActivity(intent);

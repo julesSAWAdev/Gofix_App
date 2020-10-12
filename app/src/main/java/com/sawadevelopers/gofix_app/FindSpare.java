@@ -1,6 +1,7 @@
 package com.sawadevelopers.gofix_app;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -41,6 +42,8 @@ public class FindSpare extends AppCompatActivity {
     String BASE_URL = "http://gofix.rw/android/requestSpare.php";
     private RequestQueue rQueue;
     ProgressBar proSpare;
+    private ProgressDialog progressDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,7 @@ public class FindSpare extends AppCompatActivity {
         // retrieveUser();
         loadLocale();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        progressDialog = new ProgressDialog(this);
         setContentView(R.layout.activity_find_spare);
 
         tvback = findViewById(R.id.back);
@@ -150,15 +154,19 @@ public class FindSpare extends AppCompatActivity {
         final String username = this.sessionmail;
 
 
-        proSpare.setVisibility(View.VISIBLE);
-        btnOrder.setVisibility(View.GONE);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        //Without this user can hide loader by tapping outside screen
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Please wait, sending request..");
+        progressDialog.show();
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, BASE_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         rQueue.getCache().clear();
-                        proSpare.setVisibility(View.GONE);
+                        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                        progressDialog.dismiss();
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             if (jsonObject.optString("success").equals("1")) {
@@ -167,8 +175,8 @@ public class FindSpare extends AppCompatActivity {
                                 finish();
                             } else {
                                 Toast.makeText(FindSpare.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-                                proSpare.setVisibility(View.GONE);
-                                btnOrder.setVisibility(View.VISIBLE);
+                                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                                progressDialog.dismiss();
                             }
 
                         } catch (Exception e) {
@@ -178,6 +186,10 @@ public class FindSpare extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                progressDialog.dismiss();
+                Toast.makeText(FindSpare.this, "Make sure you have a working internet connection", Toast.LENGTH_SHORT).show();
+
 
             }
 
@@ -188,9 +200,6 @@ public class FindSpare extends AppCompatActivity {
                 params.put("spareID", spareID);
                 params.put("shopID", shopID);
                 params.put("username", username);
-                System.out.println("spareID "+ spareID);
-                System.out.println("shopID "+ shopID);
-                System.out.println("username "+ username);
                 return params;
             }
         };

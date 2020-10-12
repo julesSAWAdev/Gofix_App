@@ -126,7 +126,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="@string/rentcar"
-                    android:textSize="15sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
 

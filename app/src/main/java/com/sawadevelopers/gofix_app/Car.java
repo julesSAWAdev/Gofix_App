@@ -1,6 +1,7 @@
 package com.sawadevelopers.gofix_app;
 
 public class Car {
+    private String car_id;
     private String title;
     private String engine;
     private String tank;
@@ -11,10 +12,11 @@ public class Car {
     private Double monthly;
     private Double user;
     private double rent_id;
-    private String phone,address;
+    private String phone,address,hourp;
 
-    public Car(String title, String engine, String tank, String image1, String image2, String image3, Double daily, Double monthly, Double user,Double rent_id,String phone,String address){
+    public Car(String car_id,String title, String engine, String tank, String image1, String image2, String image3, Double daily, Double monthly, Double user,Double rent_id,String phone,String address,String hourp){
 
+        this.car_id =car_id;
         this.title = title;
         this.engine = engine;
         this.tank = tank;
@@ -27,6 +29,15 @@ public class Car {
         this.rent_id = rent_id;
         this.phone = phone;
         this.address = address;
+        this.hourp = hourp;
+    }
+
+    public String getCar_id() {
+        return car_id;
+    }
+
+    public void setCar_id(String car_id) {
+        this.car_id = car_id;
     }
 
     public String getTitle() {
@@ -123,5 +134,13 @@ public class Car {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getHourp() {
+        return hourp;
+    }
+
+    public void setHourp(String hourp) {
+        this.hourp = hourp;
     }
 }

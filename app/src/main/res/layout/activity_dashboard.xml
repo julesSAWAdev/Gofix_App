@@ -102,7 +102,7 @@
                     android:padding="12dp"
                     android:layout_gravity="center_vertical"
                     android:background="@drawable/circle"
-                    android:src="@drawable/ic_directions_car_black_24dp"
+                    android:src="@drawable/directions"
                     tools:ignore="ContentDescription" />
 
             </LinearLayout> <!--  End Icon -->
@@ -121,7 +121,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
-                    android:textSize="15sp"
+                    android:textSize="20sp"
                     android:text="@string/service"/>
 
 
@@ -163,7 +163,7 @@
                     android:padding="12dp"
                     android:layout_gravity="center_vertical"
                     android:background="@drawable/circle"
-                    android:src="@drawable/ic_directions_car_black_24dp"
+                    android:src="@drawable/mall"
                     tools:ignore="ContentDescription" />
 
             </LinearLayout> <!--  End Icon -->
@@ -181,10 +181,9 @@
                     android:id="@+id/spare"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="15sp"
-                    android:text="@string/spare"/>
-
+                    android:text="@string/spare"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
 
             </LinearLayout> <!--  End My Account text -->
@@ -249,7 +248,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:textSize="15sp"
+                android:textSize="20sp"
                 android:text="@string/carrental"/>
 
 
@@ -292,7 +291,7 @@
                     android:padding="12dp"
                     android:layout_gravity="center_vertical"
                     android:background="@drawable/circle"
-                    android:src="@drawable/ic_directions_car_black_24dp"
+                    android:src="@drawable/person"
                     tools:ignore="ContentDescription" />
 
             </LinearLayout> <!--  End Icon -->
@@ -311,7 +310,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
-                    android:textSize="15sp"
+                    android:textSize="20sp"
                     android:text="@string/driverhire"/>
 
 

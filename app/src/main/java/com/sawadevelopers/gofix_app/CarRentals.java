@@ -1,6 +1,7 @@
 package com.sawadevelopers.gofix_app;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -40,6 +41,7 @@ public class CarRentals extends AppCompatActivity {
     TextView tvback,username;
     ImageView settings;
     String userStored,sessionmail;
+    private ProgressDialog progressDialog;
 
     private final String BASE_URL = "http://gofix.rw/android/getCars.php";
 
@@ -49,6 +51,8 @@ public class CarRentals extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         loadLocale();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        progressDialog = new ProgressDialog(this);
+
         setContentView(R.layout.activity_car_rentals);
 
         //hooks
@@ -96,13 +100,18 @@ public class CarRentals extends AppCompatActivity {
     }
 
     private void getCars(){
-        progressBar.setVisibility(View.VISIBLE);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        //Without this user can hide loader by tapping outside screen
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Please wait, retrieving cars...");
+        progressDialog.show();
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, BASE_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        progressBar.setVisibility(View.GONE);
+                        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                        progressDialog.dismiss();
                         try {
 
                             JSONArray array = new JSONArray(response);
@@ -121,9 +130,11 @@ public class CarRentals extends AppCompatActivity {
                                 Double carid =jsonObject.getDouble("rent_id");
                                 String phone = jsonObject.getString("phone");
                                 String address = jsonObject.getString("address");
+                                String hours = jsonObject.getString("hour_price");
+                                String car_id = jsonObject.getString("rent_id");
                                // System.out.println(image1);
 
-                                Car car = new Car(title,engine,tank,image1,image2,image3,daily,monthly,user,carid,phone,address);
+                                Car car = new Car(car_id,title,engine,tank,image1,image2,image3,daily,monthly,user,carid,phone,address,hours);
                                 cars.add(car);
 
                             }
@@ -141,7 +152,8 @@ public class CarRentals extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                progressBar.setVisibility(View.GONE);
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                progressDialog.dismiss();
                 Toast.makeText(CarRentals.this,"Make sure you are connected to the internet",Toast.LENGTH_LONG).show();
 
             }

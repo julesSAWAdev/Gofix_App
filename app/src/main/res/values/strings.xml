@@ -36,7 +36,7 @@
     <string name="delete">DELETE MY ACCOUNT</string>
     <string name="Auto">Automobile services</string>
     <string name="mecha">Mechanics</string>
-    <string name="spare">Spare parts</string>
+    <string name="spare">Shop</string>
     <string name="carrental">Car rental</string>
 
 
@@ -65,7 +65,7 @@
     <string name="findwasher">Find a car wash</string>
     <string name="registerGar">Register Garage/Mechanician</string>
 
-    <string name="findSpare">Find a spare part</string>
+    <string name="findSpare">Spare Parts</string>
     <string name="regSpare">Register your shop</string>
 
     <string name="book">Book Now</string>
@@ -84,6 +84,7 @@
 
     <string name="thankspare">Thank you for ordering  with us, in meantime you can contact the saler</string>
     <string name="thankreq">Thank you for service request, in meantime you can contact the service agent</string>
+    <string name="thankbooker">Thank you for booking request, in meantime you can contact the rental agent</string>
 
     <string name="contact">Contacts</string>
     <string name="rentcar">Rent a car</string>
@@ -102,6 +103,11 @@
     <string name="diverlicense">Driving license Number</string>
     <string name="category">Categories (Letters only)</string>
     <string name="select">Select date of service</string>
+    <string name="oldpwd">Current password</string>
+    <string name="newpwd">New password</string>
+    <string name="Cnewpwd">Confirm new password</string>
+    <string name="requiredFieldErr">* required</string>
+    <string name="electronics">Electronic devices</string>
 
 
 </resources>

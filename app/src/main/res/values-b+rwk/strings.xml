@@ -37,7 +37,7 @@
     <string name="delete">SIBA KONTI YAWE</string>
     <string name="Auto">Servisi z\'imodoka</string>
     <string name="mecha">Umukanishi</string>
-    <string name="spare">Ibikoresho</string>
+    <string name="spare">Iduka</string>
     <string name="carrental">Gukodesha Imodoka</string>
 
 
@@ -70,7 +70,7 @@
     <string name="findwasher">Shakisha Ikinamba</string>
     <string name="registerGar">Register Garage/Mechanician</string>
 
-    <string name="findSpare">Shaka piece</string>
+    <string name="findSpare">Piyese z\'imodoka</string>
     <string name="regSpare">Andikisha Iduka</string>
 
     <string name="book">Kodesha</string>
@@ -87,6 +87,7 @@
     <string name="order">Tumiza</string>
     <string name="thankspare">Urakoze gutumiza natwe, Mugihe mugitegereje mushobora guhamagara umucuruzi</string>D
     <string name="thankreq">Urakoze gutumiza natwe, Mugihe mugitegereje mushobora guhamagara uwo mwasabye service</string>
+    <string name="thankbooker">Urakoze gusaba service, Mugihe mugitegereje mushobora guhamagara ukodesha imodoka</string>
 
     <string name="contact">Aho wabariza</string>
     <string name="rentcar">Kodesha Imodoka</string>
@@ -106,5 +107,12 @@
     <string name="diverlicense">Numero y\'uruhushya</string>
     <string name="category">Kategori (Inyiguti gusa)</string>
     <string name="select">Hitamo Itariki</string>
+
+    <string name="oldpwd">Ijambo banga usanganywe</string>
+    <string name="newpwd">Ijambo banga rishya</string>
+    <string name="Cnewpwd">Emeza ijambo banga rishya</string>
+    <string name="requiredFieldErr">* uzuza</string>
+    <string name="electronics">Ibikoresho by\'ikoranabuhanga</string>
+
 
 </resources>
