@@ -1,6 +1,11 @@
 package com.sawadevelopers.gofix_app;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -11,10 +16,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -31,8 +32,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class SpareParts extends AppCompatActivity {
-    private List<spare> spares;
+public class Electronics_parts extends AppCompatActivity {
+    private List<Electronics> electronics;
     private RecyclerView.Adapter mAdapter;
     private ProgressBar progressBar;
     private RecyclerView recyclerView;
@@ -40,15 +41,19 @@ public class SpareParts extends AppCompatActivity {
     TextView tvback,username;
     ImageView settings;
     String userStored,sessionmail;
+    private ProgressDialog progressDialog;
 
-    private final String BASE_URL = "http://gofix.rw/android/getspares.php";
+
+    private final String BASE_URL = "http://gofix.rw/android/getElectronics.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadLocale();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_spare_parts);
+        progressDialog = new ProgressDialog(this);
+
+        setContentView(R.layout.activity_electronics_parts);
 
 
         //hooks
@@ -57,9 +62,9 @@ public class SpareParts extends AppCompatActivity {
         tvback = findViewById(R.id.back);
         username = findViewById(R.id.tvUsername);
         settings = findViewById(R.id.ivSettings);
-        manager = new GridLayoutManager(SpareParts.this,2);
+        manager = new GridLayoutManager(Electronics_parts.this,2);
         recyclerView.setLayoutManager(manager);
-        spares = new ArrayList<>();
+        electronics = new ArrayList<>();
 
         //tvusername
         SharedPreferences prefs = getSharedPreferences("userLoginData", MODE_PRIVATE);
@@ -81,24 +86,27 @@ public class SpareParts extends AppCompatActivity {
         tvback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent =  new Intent(SpareParts.this,SpareServices.class);
+                Intent intent =  new Intent(Electronics_parts.this,SpareServices.class);
                 startActivity(intent);
                 finish();
                 overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
             }
         });
 
-        getSpares();
+        getElectronics();
     }
-    public void getSpares(){
-        progressBar.setVisibility(View.VISIBLE);
-
+    public void getElectronics(){
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        //Without this user can hide loader by tapping outside screen
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Please wait, retrieving electronics...");
+        progressDialog.show();
         StringRequest stringRequest = new StringRequest(Request.Method.GET, BASE_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        progressBar.setVisibility(View.GONE);
-
+                        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                        progressDialog.dismiss();
                         try {
                             JSONArray jsonArray = new JSONArray(response);
                             for (int i = 0;i < jsonArray.length(); i++){
@@ -113,8 +121,8 @@ public class SpareParts extends AppCompatActivity {
                                 double spareid = jsonObject.getDouble("spareid");
                                 double shopid = jsonObject.getDouble("shopid");
 
-                                spare spare = new spare(spareid,name,price,image,shopid,description,phone,address);
-                                spares.add(spare);
+                                Electronics electronic = new Electronics(spareid,name,price,image,shopid,description,phone,address);
+                                electronics.add(electronic);
 
 
 
@@ -123,15 +131,17 @@ public class SpareParts extends AppCompatActivity {
 
                         } catch (Exception e) {
                         }
-                        mAdapter = new SpareRecyclerAdapter(SpareParts.this, spares);
+                        mAdapter = new ElectronicsRecyclerAdapter(Electronics_parts.this, electronics);
                         recyclerView.setAdapter(mAdapter);
+                        //System.out.println(electronics);
 
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                progressBar.setVisibility(View.GONE);
-                Toast.makeText(SpareParts.this,error.toString(),Toast.LENGTH_LONG).show();
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                progressDialog.dismiss();
+                Toast.makeText(Electronics_parts.this,"Make sure you are connected to the internet",Toast.LENGTH_LONG).show();
             }
         });
         int MY_SOCKET_TIMEOUT_MS=5000000;
@@ -163,4 +173,5 @@ public class SpareParts extends AppCompatActivity {
         String language = prefs.getString("My_lang", "");
         setLocale(language);
     }
+
 }

@@ -28,7 +28,7 @@ import org.json.JSONObject;
 import java.util.Locale;
 
 public class SpareServices extends AppCompatActivity {
-    TextView tvback,findSpare,username;
+    TextView tvback,findSpare,username,findelectronics;
     ImageView settings;
     String sessionmail,userStored;
 
@@ -47,6 +47,7 @@ public class SpareServices extends AppCompatActivity {
         findSpare = findViewById(R.id.findspare);
         registerShop = findViewById(R.id.registerShop);
         username = findViewById(R.id.tvUsername);
+        findelectronics = findViewById(R.id.findelectronics);
 
         //tvusername
         SharedPreferences prefs = getSharedPreferences("userLoginData", MODE_PRIVATE);
@@ -81,6 +82,14 @@ public class SpareServices extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        findelectronics.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =  new Intent(SpareServices.this,Electronics_parts.class);
+                startActivity(intent);
+            }
+        });
+
 
         registerShop.setOnClickListener(new View.OnClickListener() {
             @Override

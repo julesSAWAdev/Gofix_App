@@ -10,7 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ChangePassword"></activity>
+        <activity android:name=".FindElectrinic"></activity>
+        <activity android:name=".Electronics_parts" />
+        <activity android:name=".ChangePassword" />
         <activity android:name=".BooksSuccess" />
         <activity android:name=".BookingSuccess" />
         <activity android:name=".requestSuccess" />
