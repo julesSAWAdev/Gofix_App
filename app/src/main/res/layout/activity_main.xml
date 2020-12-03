@@ -209,10 +209,9 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="0dp"
-                android:text="District"
                 android:layout_marginBottom="5dp"
-                android:textSize="18dp"
-                />
+                android:text="District"
+                android:textSize="18dp" />
 
             <!-- Spinner Element -->
             <com.google.android.material.textfield.TextInputLayout
@@ -278,6 +277,7 @@
                 android:textSize="18dp"
                 android:background="@color/green_2"
                 android:layout_gravity="center_vertical"
+                android:textColor="@color/white"
                 />
             <TextView
                 android:layout_width="match_parent"
@@ -350,7 +350,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="15dp"
             android:layout_marginLeft="20dp"
-            android:background="#689999"
+            android:background="@color/blue"
             android:layout_marginRight="20dp"
             android:text="@string/request"
             android:textColor="#fff" />

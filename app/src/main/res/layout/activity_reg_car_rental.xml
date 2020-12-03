@@ -89,7 +89,8 @@
             android:background="@drawable/card_bg"
             android:padding="22dp"
             android:orientation="horizontal"
-            tools:ignore="DisableBaselineAlignment">
+            tools:ignore="DisableBaselineAlignment"
+            android:backgroundTint="@color/green_2">
 
             <!--  Icon -->
             <LinearLayout
@@ -128,7 +129,8 @@
                     android:layout_height="match_parent"
                     android:text="@string/rentcar"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="@color/white"/>
 
 
 
@@ -145,7 +147,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:background="#689999"
+            android:background="@color/blue"
             android:layout_gravity="center"
             android:text="@string/rerental"
             android:textColor="#fff"

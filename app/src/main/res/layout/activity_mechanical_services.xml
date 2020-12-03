@@ -89,7 +89,8 @@
             android:background="@drawable/card_bg"
             android:padding="22dp"
             android:orientation="horizontal"
-            tools:ignore="DisableBaselineAlignment">
+            tools:ignore="DisableBaselineAlignment"
+            android:backgroundTint="@color/green_2">
 
             <!--  Icon -->
             <LinearLayout
@@ -128,7 +129,8 @@
                     android:layout_height="match_parent"
                     android:text="@string/findgar"
                     android:textSize="15sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="@color/white"/>
 
 
 
@@ -154,7 +156,8 @@
             android:background="@drawable/card_bg"
             android:padding="22dp"
             android:orientation="horizontal"
-            tools:ignore="DisableBaselineAlignment">
+            tools:ignore="DisableBaselineAlignment"
+            android:backgroundTint="@color/blue">
 
             <!--  Icon -->
             <LinearLayout
@@ -193,7 +196,8 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:textSize="15sp"
-                    android:text="@string/findmec"/>
+                    android:text="@string/findmec"
+                    android:textColor="@color/white"/>
 
 
 
@@ -219,7 +223,8 @@
             android:background="@drawable/card_bg"
             android:padding="22dp"
             android:orientation="horizontal"
-            tools:ignore="DisableBaselineAlignment">
+            tools:ignore="DisableBaselineAlignment"
+            android:backgroundTint="#c44077">
 
             <!--  Icon -->
             <LinearLayout
@@ -258,7 +263,8 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:textSize="15sp"
-                    android:text="@string/findwasher"/>
+                    android:text="@string/findwasher"
+                    android:textColor="@color/white"/>
 
 
 
@@ -272,7 +278,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:background="#689999"
+            android:background="@color/blue"
             android:layout_gravity="center"
             android:text="@string/registerGar"
             android:textColor="#ffff"

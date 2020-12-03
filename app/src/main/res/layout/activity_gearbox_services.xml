@@ -89,7 +89,8 @@
             android:background="@drawable/card_bg"
             android:padding="22dp"
             android:orientation="horizontal"
-            tools:ignore="DisableBaselineAlignment">
+            tools:ignore="DisableBaselineAlignment"
+            android:backgroundTint="@color/green_2">
 
             <!--  Icon -->
             <LinearLayout
@@ -128,7 +129,8 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:textSize="15sp"
-                    android:text="@string/maintenance"/>
+                    android:text="@string/maintenance"
+                    android:textColor="@color/white"/>
 
 
 
@@ -155,7 +157,8 @@
             android:background="@drawable/card_bg"
             android:padding="22dp"
             android:orientation="horizontal"
-            tools:ignore="DisableBaselineAlignment">
+            tools:ignore="DisableBaselineAlignment"
+            android:backgroundTint="@color/blue">
 
             <!--  Icon -->
             <LinearLayout
@@ -194,7 +197,8 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:textSize="15sp"
-                    android:text="@string/repair"/>
+                    android:text="@string/repair"
+                    android:textColor="@color/white"/>
 
 
 

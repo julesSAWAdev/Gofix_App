@@ -67,12 +67,25 @@
         </LinearLayout> <!-- End Header Section -->
 
 
+        <TextView
+            android:id="@+id/ourseervices"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ouservices"
+            android:textSize="50sp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            />
+
+
+
 
 
 
         <LinearLayout
             android:id="@+id/carService"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="60dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -84,7 +97,9 @@
             android:background="@drawable/card_bg"
             android:padding="22dp"
             android:orientation="horizontal"
-            tools:ignore="DisableBaselineAlignment">
+            tools:ignore="DisableBaselineAlignment"
+            android:backgroundTint="#43904c"
+            >
 
             <!--  Icon -->
             <LinearLayout
@@ -123,7 +138,8 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:textSize="20sp"
-                    android:text="@string/service"/>
+                    android:text="@string/service"
+                    android:textColor="@color/white"/>
 
 
 
@@ -131,20 +147,28 @@
 
         </LinearLayout> <!--  End My Account Card -->
 
+        <!--  End My Account Card -->
+
+
+
+        <!-- *********************************** -->
+        <!--           FAQs Card          -->
+        <!-- *********************************** -->
         <LinearLayout
             android:id="@+id/myAccountCard"
-            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
             android:layout_gravity="center_vertical"
-            android:weightSum="5"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/card_bg"
+            android:backgroundTint="#2778ab"
             android:clickable="true"
             android:focusable="true"
-            android:background="@drawable/card_bg"
-            android:padding="22dp"
             android:orientation="horizontal"
+            android:padding="22dp"
+            android:weightSum="5"
             tools:ignore="DisableBaselineAlignment">
 
             <!--  Icon -->
@@ -152,18 +176,18 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:orientation="vertical"
+                android:layout_weight="1.2"
                 android:gravity="center"
-                android:layout_weight="1.2">
+                android:orientation="vertical">
 
                 <ImageView
-                    android:clickable="true"
-                    android:focusable="true"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:padding="12dp"
                     android:layout_gravity="center_vertical"
                     android:background="@drawable/circle"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="12dp"
                     android:src="@drawable/mall"
                     tools:ignore="ContentDescription" />
 
@@ -173,29 +197,25 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_gravity="center_vertical"
+                android:layout_weight="3.8"
                 android:gravity="center_vertical"
-                android:layout_weight="3.8">
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/spare"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/spare"
+                    android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
 
             </LinearLayout> <!--  End My Account text -->
 
-        </LinearLayout> <!--  End My Account Card -->
+        </LinearLayout>
 
-
-
-        <!-- *********************************** -->
-        <!--           FAQs Card          -->
-        <!-- *********************************** -->
         <LinearLayout
         android:id="@+id/FAQs"
         android:layout_marginTop="20dp"
@@ -211,7 +231,8 @@
         android:background="@drawable/card_bg"
         android:padding="22dp"
         android:orientation="horizontal"
-        tools:ignore="DisableBaselineAlignment">
+        tools:ignore="DisableBaselineAlignment"
+            android:backgroundTint="#c44077">
 
         <!--  Icon -->
         <LinearLayout
@@ -250,7 +271,8 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:textSize="20sp"
-                android:text="@string/carrental"/>
+                android:text="@string/carrental"
+                android:textColor="@color/white"/>
 
 
 
@@ -273,7 +295,8 @@
             android:background="@drawable/card_bg"
             android:padding="22dp"
             android:orientation="horizontal"
-            tools:ignore="DisableBaselineAlignment">
+            tools:ignore="DisableBaselineAlignment"
+            android:backgroundTint="#2778ab">
 
             <!--  Icon -->
             <LinearLayout
@@ -312,7 +335,8 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:textSize="20sp"
-                    android:text="@string/driverhire"/>
+                    android:text="@string/driverhire"
+                    android:textColor="@color/white"/>
 
 
 

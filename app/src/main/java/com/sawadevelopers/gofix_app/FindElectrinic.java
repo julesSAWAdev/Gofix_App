@@ -76,7 +76,7 @@ public class FindElectrinic extends AppCompatActivity {
 
         //shared preferences
         SharedPreferences pref = getSharedPreferences("logindata", MODE_PRIVATE);
-        sessionmail = pref.getString("username",null);
+        sessionmail = pref.getString("username", null);
 
         settings.setOnClickListener(new View.OnClickListener() {
             @Override

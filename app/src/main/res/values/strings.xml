@@ -37,7 +37,7 @@
     <string name="Auto">Automobile services</string>
     <string name="mecha">Mechanics</string>
     <string name="spare">Shop</string>
-    <string name="carrental">Car rental</string>
+    <string name="carrental">Rent a car</string>
 
 
     <!-- error messages -->
@@ -95,7 +95,7 @@
     <string name="service">Car Service</string>
     <string name="request">Request appointment</string>
     <string name="details">More Information</string>
-    <string name="driverhire">Driver hire</string>
+    <string name="driverhire">Hire a driver</string>
     <string name="finddrive">Find a driver</string>
     <string name="Registerdrive">Register as a driver</string>
     <string name="name">Name</string>
@@ -108,6 +108,6 @@
     <string name="Cnewpwd">Confirm new password</string>
     <string name="requiredFieldErr">* required</string>
     <string name="electronics">Electronic devices</string>
-
+<string name="ouservices">Our Services</string>
 
 </resources>

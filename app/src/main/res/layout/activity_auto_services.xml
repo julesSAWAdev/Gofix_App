@@ -88,7 +88,8 @@
             android:background="@drawable/card_bg"
             android:padding="22dp"
             android:orientation="horizontal"
-            tools:ignore="DisableBaselineAlignment">
+            tools:ignore="DisableBaselineAlignment"
+            android:backgroundTint="@color/green_2">
 
             <!--  Icon -->
             <LinearLayout
@@ -127,7 +128,8 @@
                     android:layout_height="match_parent"
                     android:text="@string/engine"
                     android:textSize="15sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="@color/white"/>
 
 
 
@@ -153,7 +155,8 @@
             android:background="@drawable/card_bg"
             android:padding="22dp"
             android:orientation="horizontal"
-            tools:ignore="DisableBaselineAlignment">
+            tools:ignore="DisableBaselineAlignment"
+            android:backgroundTint="#2778ab">
 
             <!--  Icon -->
             <LinearLayout
@@ -192,7 +195,8 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:textSize="15sp"
-                    android:text="@string/electricity"/>
+                    android:text="@string/electricity"
+                    android:textColor="@color/white"/>
 
 
 
@@ -218,7 +222,9 @@
             android:background="@drawable/card_bg"
             android:padding="22dp"
             android:orientation="horizontal"
-            tools:ignore="DisableBaselineAlignment">
+            tools:ignore="DisableBaselineAlignment"
+            android:backgroundTint="#c44077"
+            >
 
             <!--  Icon -->
             <LinearLayout
@@ -257,7 +263,8 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:textSize="15sp"
-                    android:text="@string/pnematic"/>
+                    android:text="@string/pnematic"
+                    android:textColor="@color/white"/>
 
 
 
@@ -283,7 +290,8 @@
             android:background="@drawable/card_bg"
             android:padding="22dp"
             android:orientation="horizontal"
-            tools:ignore="DisableBaselineAlignment">
+            tools:ignore="DisableBaselineAlignment"
+            android:backgroundTint="#2778ab">
 
             <!--  Icon -->
             <LinearLayout
@@ -322,7 +330,8 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:textSize="15sp"
-                    android:text="@string/sheetmetal"/>
+                    android:text="@string/sheetmetal"
+                    android:textColor="@color/white"/>
 
 
             </LinearLayout> <!--  End My FAQs text -->
@@ -341,7 +350,8 @@
             android:background="@drawable/card_bg"
             android:padding="22dp"
             android:orientation="horizontal"
-            tools:ignore="DisableBaselineAlignment">
+            tools:ignore="DisableBaselineAlignment"
+            android:backgroundTint="@color/green_2">
 
             <!--  Icon -->
             <LinearLayout
@@ -380,7 +390,8 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:textSize="15sp"
-                    android:text="@string/gearbox"/>
+                    android:text="@string/gearbox"
+                    android:textColor="@color/white"/>
 
 
 
@@ -401,7 +412,8 @@
             android:background="@drawable/card_bg"
             android:padding="22dp"
             android:orientation="horizontal"
-            tools:ignore="DisableBaselineAlignment">
+            tools:ignore="DisableBaselineAlignment"
+            android:backgroundTint="#c44077">
 
             <!--  Icon -->
             <LinearLayout
@@ -440,7 +452,8 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:textSize="15sp"
-                    android:text="@string/ac"/>
+                    android:text="@string/ac"
+                    android:textColor="@color/white"/>
 
 
             </LinearLayout> <!--  End My FAQs text -->
