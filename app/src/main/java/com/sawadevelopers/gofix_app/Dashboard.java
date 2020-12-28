@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +35,7 @@ public class Dashboard extends AppCompatActivity {
     String sessionmail,userStored;
     TextView autoser,mechanician,spare,username,rental,driver,service;
     private RequestQueue rQueue;
+    LinearLayout carservice,shop,rent,carhire;
 
 
     @Override
@@ -52,6 +54,10 @@ public class Dashboard extends AppCompatActivity {
         rental = findViewById(R.id.rental);
         service = findViewById(R.id.btnReport);
         driver = findViewById(R.id.driverhire);
+        carservice = findViewById(R.id.carService);
+        shop=findViewById(R.id.shop);
+        rent = findViewById(R.id.rent);
+        carhire = findViewById(R.id.carhire);
 
         //tvusername
         SharedPreferences prefs = getSharedPreferences("userLoginData", MODE_PRIVATE);
@@ -77,7 +83,14 @@ public class Dashboard extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),SpareServices.class));
-               // finish();
+                // finish();
+            }
+        });
+        shop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),SpareServices.class));
+                // finish();
             }
         });
         rental.setOnClickListener(new View.OnClickListener() {
@@ -86,7 +99,20 @@ public class Dashboard extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(),RegCarRental.class));
             }
         });
+        rent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),RegCarRental.class));
+            }
+        });
+
         service.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+            }
+        });
+        carservice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),MainActivity.class));
@@ -98,6 +124,13 @@ public class Dashboard extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(),driverHire.class));
             }
         });
+        carhire.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),driverHire.class));
+            }
+        });
+
     }
 
     private void retrieveUser() {

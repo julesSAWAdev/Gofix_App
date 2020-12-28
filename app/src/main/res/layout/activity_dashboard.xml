@@ -155,7 +155,7 @@
         <!--           FAQs Card          -->
         <!-- *********************************** -->
         <LinearLayout
-            android:id="@+id/myAccountCard"
+            android:id="@+id/shop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -217,7 +217,7 @@
         </LinearLayout>
 
         <LinearLayout
-        android:id="@+id/FAQs"
+        android:id="@+id/rent"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
         android:layout_width="match_parent"

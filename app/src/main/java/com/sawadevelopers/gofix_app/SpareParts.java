@@ -125,6 +125,7 @@ public class SpareParts extends AppCompatActivity {
                         }
                         mAdapter = new SpareRecyclerAdapter(SpareParts.this, spares);
                         recyclerView.setAdapter(mAdapter);
+                        //System.out.println("cars are :" + spares);
 
                     }
                 }, new Response.ErrorListener() {

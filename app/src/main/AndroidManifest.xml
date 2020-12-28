@@ -13,6 +13,7 @@
         <activity android:name=".FindElectrinic"></activity>
         <activity android:name=".Electronics_parts" />
         <activity android:name=".ChangePassword" />
+        <activity android:name=".CarRentals" />
         <activity android:name=".BooksSuccess" />
         <activity android:name=".BookingSuccess" />
         <activity android:name=".requestSuccess" />
@@ -29,7 +30,6 @@
         <activity android:name=".ShopSuccess" />
         <activity android:name=".RegisterShop" />
         <activity android:name=".DetailedCarActivity" />
-        <activity android:name=".CarRentals" />
         <activity android:name=".SpareServices" />
         <activity android:name=".MechanicalServices" />
         <activity android:name=".acServices" />
